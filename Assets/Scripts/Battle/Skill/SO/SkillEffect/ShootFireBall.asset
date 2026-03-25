@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19750b42996590949b7cd3627f120871, type: 3}
+  m_Name: ShootFireBall
+  m_EditorClassIdentifier: 
+  value: 0
+  projectilePrefab: {fileID: 701388264008285116, guid: 72ca8c780fcf9fb48a71e81a9e40ffcc, type: 3}
+  projectileSpeed: 7
+  poolCount: 2
+  hitEffects:
+  - {fileID: 11400000, guid: b733072b47010e947887e3933075ba6c, type: 2}

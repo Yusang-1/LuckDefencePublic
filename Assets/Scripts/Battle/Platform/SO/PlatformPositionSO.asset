@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0c4c38715fc6d43985d0f8797e6289, type: 3}
+  m_Name: PlatformPositionSO
+  m_EditorClassIdentifier: 
+  platformPosition:
+  - rank: 0
+    roomArea: 3
+    pos:
+    - {x: 0, y: 0.2, z: 0}
+    - {x: -0.245, y: -0.28, z: 0}
+    - {x: 0.245, y: -0.28, z: 0}
+  - rank: 1
+    roomArea: 3
+    pos:
+    - {x: 0, y: 0.2, z: 0}
+    - {x: -0.245, y: -0.28, z: 0}
+    - {x: 0.245, y: -0.28, z: 0}
+  - rank: 2
+    roomArea: 3
+    pos:
+    - {x: 0, y: 0.2, z: 0}
+    - {x: -0.245, y: -0.28, z: 0}
+    - {x: 0.245, y: -0.28, z: 0}
+  - rank: 3
+    roomArea: 3
+    pos:
+    - {x: 0, y: 0.2, z: 0}
+    - {x: -0.245, y: -0.28, z: 0}
+    - {x: 0.245, y: -0.28, z: 0}
+  - rank: 4
+    roomArea: 1
+    pos:
+    - {x: 0, y: 0, z: 0}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b85fae618997904bb9b9ca1f9394565, type: 3}
+  m_Name: CharList5Legnedary
+  m_EditorClassIdentifier: 
+  rank: 4
+  entityList:
+  - {fileID: 2752432650951637511, guid: 4ddb2e8b549412240900c447500f0fe9, type: 3}
+  - {fileID: 6932989792326727667, guid: 57425ca67fc7f1d4e979a68b377b7b19, type: 3}
+  - {fileID: 7620778988074534567, guid: 16daba16db5f8214d97951fa7ffa5c34, type: 3}
+  - {fileID: 2752432650951637511, guid: e62a6cbfa38129842a781e94c9f0ba07, type: 3}
+  - {fileID: 6932989792326727667, guid: 09298a2cdb5e3a94e9ed20482a9b03a3, type: 3}
+  - {fileID: 7620778988074534567, guid: 917109d537a9d0e4b82691118ef58d24, type: 3}
+  fullCount: 6

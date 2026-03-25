@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e5ccec9a0c0934aa8a6813349ba38d, type: 3}
+  m_Name: Char504
+  m_EditorClassIdentifier: 
+  Code: 504
+  EntityName: Char504
+  MaxHp: 0
+  MaxMp: 100
+  GetMPPoint: 20
+  AttackPoint: 30
+  AttackSpeed: 1.2
+  AttackRange: 4
+  defaultDefencePoint: 1
+  MoveSpeed: 2.5
+  Prefab: {fileID: 4241004857732525740, guid: 09298a2cdb5e3a94e9ed20482a9b03a3, type: 3}
+  ActiveSkillCode: 0
+  Rank: 4
+  poolNum: 3
+  Weight: 3
+  price: 300
+  BasicAttack: {fileID: 11400000, guid: 67ea97f916146844691fdd036b8439dc, type: 2}
+  Skill: {fileID: 11400000, guid: 6f23625c57a200944b11158c1d1131b5, type: 2}

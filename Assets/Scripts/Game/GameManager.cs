@@ -1,0 +1,42 @@
+﻿using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    [SerializeField] private UIManager uiManager;    
+    [SerializeField] private SaveLoad saveLoad;
+    [SerializeField] private PlayerResourcesSO playerResources;
+    public UIManager UIManager => uiManager;
+    public PlayerResourcesSO PlayerResources => playerResources;
+    public SaveLoad SaveLoad => saveLoad;
+
+    private static bool hasInstance = false;
+
+    void Awake()
+    {
+        if (hasInstance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            hasInstance = true;
+
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    
+    private void Start()
+    {
+        saveLoad.LoadGame();
+    }
+
+    void OnDestroy()
+    {
+        saveLoad.SaveGame();
+    }
+
+    public void Initialize()
+    {
+        uiManager.ChangeMainUI();
+    }
+}
