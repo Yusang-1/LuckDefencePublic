@@ -1,1 +1,1 @@
-# LuckDefencePrivate
+# LuckDefencePublic
