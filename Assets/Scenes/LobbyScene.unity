@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83773dfdc35cb4c418897e2a8d302ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HPUI: {fileID: 2838596872730185219, guid: af50b989cb12cf64f969ff8ddacee6e4, type: 3}
+  HPUIObject: {fileID: 2838596872730185219, guid: eb4827f9efd41dc48b6c8da8bc841084, type: 3}
   poolTransform: {fileID: 68249214}
 --- !u!1 &83456056
 GameObject:
@@ -21503,7 +21503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

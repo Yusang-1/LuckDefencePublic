@@ -1,34 +1,51 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectilePool
 {
-    private Projectile[] pool;
-    private int poolSize;
+    private Projectile[] projectiles;
     
-    public ProjectilePool(ShootProjectileSkillEffect data)
+    /// <summary>
+    /// projectile Pool 생성
+    /// </summary>
+    /// <param name="skillData"></param>
+    public ProjectilePool(GameObject prefab, int poolCount)
     {
-        poolSize = data.PoolCount;
-        pool = new Projectile[poolSize];
+        projectiles = new Projectile[poolCount];
         
-        for (int i = 0; i < poolSize; i++)
+        GameObject go;
+        for(int i = 0; i < poolCount; i++)
         {
-            GameObject obj = Object.Instantiate(data.ProjectilePrefab);
-            obj.SetActive(false);
-            pool[i] = obj.GetComponent<Projectile>();
+            go = GameObject.Instantiate(prefab);
+            go.SetActive(false);
+            projectiles[i] = go.GetComponent<Projectile>();            
         }
     }
     
+    /// <summary>
+    /// projectile오브젝트를 setActive하고 projectile을 반환
+    /// </summary>
+    /// <returns></returns>
     public Projectile GetProjectile()
     {
-        for (int i = 0; i < poolSize; i++)
+        Projectile returnProjectile = null;
+        
+        foreach(Projectile projectile in projectiles)
         {
-            if (!pool[i].gameObject.activeInHierarchy)
+            if(projectile.gameObject.activeSelf == false)
             {
-                return pool[i];
+                returnProjectile = projectile;
+                returnProjectile.gameObject.SetActive(true);
+                break;
             }
         }
         
-        Debug.LogWarning("모든 투사체 사용중");
-        return null;
+        if(returnProjectile == null)
+        {
+            Debug.LogWarning("projectile pool 부족");
+            return null;
+        }
+        
+        return returnProjectile;
     }
 }

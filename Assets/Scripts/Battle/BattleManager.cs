@@ -32,8 +32,9 @@ public class BattleManager : MonoBehaviour
         speedController.Initialize();
         enemySpawner.Initialize(stageData.RoundData);
         hpSpawner.Initialize(stageData);
-        battleUIManager.Initialize(stageData);
-        battleTimer.Initialize();
+        battleTimer = new BattleTimer();
+        battleUIManager.Initialize(stageData, battleTimer);
+        //battleTimer.Initialize();
 
         battleData.StartNextRound += enemySpawner.SpawnEnemy;
         battleData.StartNextRound += battleTimer.OnStartTimerAddTime;

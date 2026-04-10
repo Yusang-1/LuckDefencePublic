@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
     [SerializeField] private PlatformPositionSO platformPosData;
     [SerializeField] private PlatformHoldSelector holdSelector;
     [SerializeField] private Promotion promotion;
-    [SerializeField] private TargetSearcher targetSearcher;
+    [SerializeField] private PlatformTargetSearcher targetSearcher;
 
     [SerializeField] private int currentEntityCode;
     [SerializeField] private int entityCount;

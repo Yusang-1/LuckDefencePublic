@@ -1,44 +1,35 @@
 ﻿using UnityEngine;
+using System;
+using TMPro;
 
 public class HPUI : MonoBehaviour
 {
+    public event Action HPZero;
+    
     [SerializeField] RectTransform hpTransform;
-    [SerializeField] Vector3 upVector;
+    [SerializeField] TextMeshProUGUI hpText;
 
-    private Entity entity;
-
-    private bool isMatched;
-    public bool IsMatched => isMatched;
-
-    private void LateUpdate()
-    {
-        transform.position = Camera.main.WorldToScreenPoint(entity.transform.position + upVector);
-    }
-
+    private Entity entity;    
+    
     public void matchEntity(Entity entity)
     {
         this.entity = entity;
-
-        entity.BattleData.HPChanged += OnSetUI;
-
-        isMatched = true;
+        OnSetUI(entity.Data.MaxHp);
+        gameObject.SetActive(true);
     }
 
     public void OnSetUI(int hp)
     {
-        if(gameObject.activeSelf == false)
-        {
-            gameObject.SetActive(true);
-        }
-
+        if(entity == null) return;
+        
         float value = (float)hp / entity.Data.MaxHp;
         hpTransform.localScale = new Vector3(value, 1, 1);
+        
+        hpText.text = $"{hp}/{entity.Data.MaxHp}";
 
         if(hp <= 0)
         {
-            ResetUI();
-
-            gameObject.SetActive(false);
+            HPZero?.Invoke();
         }
     }
 
@@ -46,8 +37,7 @@ public class HPUI : MonoBehaviour
     {
         entity.BattleData.HPChanged -= OnSetUI;
         entity = null;
-        isMatched = false;
-
+        gameObject.SetActive(false);
         hpTransform.localScale = new Vector3(1, 1, 1);
     }
 }

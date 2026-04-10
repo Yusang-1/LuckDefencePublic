@@ -6258,7 +6258,6 @@ MonoBehaviour:
   enemyList: {fileID: 1642509423}
   platforms: {fileID: 477850103}
   speedController: {fileID: 1328914126}
-  battleTimer: {fileID: 1328914127}
 --- !u!4 &1328914125
 Transform:
   m_ObjectHideFlags: 0
@@ -6300,11 +6299,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1328914122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024337638ce2e724ab917283bd647c3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fd2ba471325074428dbebfdc144e785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTimeUnit: 0.01
-  warningTime: 10
 --- !u!1 &1352131258
 GameObject:
   m_ObjectHideFlags: 0

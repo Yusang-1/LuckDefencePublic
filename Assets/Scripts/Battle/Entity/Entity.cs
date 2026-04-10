@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     [SerializeField] private EntitySO data;
     [SerializeField] private EntityMover mover;
-    private BattleEntityData battleData;
+    protected BattleEntityData battleData;
     private BuffController buffController;
 
     public EntitySO Data => data;
@@ -23,16 +23,5 @@ public class Entity : MonoBehaviour
         buffController?.Initialize(this);
     }
 
-    public virtual void EntityActivated()
-    {
-        //Debug.Log($"{gameObject.name} activated");
-        if(battleData == null)
-        {
-            battleData = new BattleEntityData(data, this);
-        }
-        else
-        {
-            battleData.UpdateData(data, this);
-        }
-    }
+    public abstract void EntityActivated();
 }

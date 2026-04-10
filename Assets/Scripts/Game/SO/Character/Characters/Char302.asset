@@ -23,10 +23,35 @@ MonoBehaviour:
   defaultDefencePoint: 1
   MoveSpeed: 1.78
   Prefab: {fileID: 120250113759660313, guid: 1d5e0185a11d0a846a95a1718e01194d, type: 3}
-  ActiveSkillCode: 0
   Rank: 2
   poolNum: 5
   Weight: 1
   price: 80
-  BasicAttack: {fileID: 11400000, guid: 67ea97f916146844691fdd036b8439dc, type: 2}
-  Skill: {fileID: 11400000, guid: e75e12393121b50448a63afe2eb3a874, type: 2}
+  AttackData:
+    skillName: basic attack
+    skillDescription: basic attack
+    projectile: {fileID: 4708380461413599904, guid: 386355e6be295f64899a48b2b443f6bd, type: 3}
+    poolCount: 5
+    hitVFX: {fileID: 0}
+    SkillAbilities:
+    - rid: 8638601405152886879
+  SkillData:
+    skillName: FireBall
+    skillDescription: FireBall
+    projectile: {fileID: 701388264008285116, guid: 72ca8c780fcf9fb48a71e81a9e40ffcc, type: 3}
+    poolCount: 3
+    hitVFX: {fileID: 0}
+    SkillAbilities:
+    - rid: 8638601405152886932
+  references:
+    version: 2
+    RefIds:
+    - rid: 8638601405152886879
+      type: {class: HitBasicAttack, ns: , asm: Assembly-CSharp}
+      data:
+        damageValue: 1
+    - rid: 8638601405152886932
+      type: {class: HitTargetsInRange, ns: , asm: Assembly-CSharp}
+      data:
+        damageValue: 4
+        range: 2.8

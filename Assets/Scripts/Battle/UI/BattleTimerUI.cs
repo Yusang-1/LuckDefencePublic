@@ -8,27 +8,16 @@ public class BattleTimerUI : UIPresenter
     [SerializeField] private Image timerImage;
     [SerializeField] private TextMeshProUGUI timerText;
     
-    private BattleTimer timer;
-
-    private void Start()
-    {
-        if (timer == null)
-        {
-            timer = FindAnyObjectByType<BattleTimer>();
-        }
-    }    
+    private BattleTimer timer;  
 
     private void OnDestroy()
     {
         timer.TimeChanged -= OnUpdateUI;
     }
 
-    public void Initialize()
+    public void Initialize(BattleTimer timer)
     {
-        if(timer == null)
-        {
-            timer = FindAnyObjectByType<BattleTimer>();
-        }
+        this.timer = timer;
         timer.TimeChanged += OnUpdateUI;
     }
 

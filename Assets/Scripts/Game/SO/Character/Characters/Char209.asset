@@ -23,10 +23,35 @@ MonoBehaviour:
   defaultDefencePoint: 1
   MoveSpeed: 2.5
   Prefab: {fileID: 6580228343100958181, guid: 73767b14d3cfe594287b7b6ba1c47fdc, type: 3}
-  ActiveSkillCode: 0
   Rank: 1
   poolNum: 7
   Weight: 1
   price: 30
-  BasicAttack: {fileID: 11400000, guid: 67ea97f916146844691fdd036b8439dc, type: 2}
-  Skill: {fileID: 11400000, guid: 542aeecbfb09b45459192f67ab102211, type: 2}
+  AttackData:
+    skillName: basic attack
+    skillDescription: basic attack
+    projectile: {fileID: 4708380461413599904, guid: 386355e6be295f64899a48b2b443f6bd, type: 3}
+    poolCount: 5
+    hitVFX: {fileID: 0}
+    SkillAbilities:
+    - rid: 8638601405152886884
+  SkillData:
+    skillName: Slow Area
+    skillDescription: Slow Area
+    projectile: {fileID: 701388264008285116, guid: ce14bc18323e03546a5bdbcb2e3c867e, type: 3}
+    poolCount: 3
+    hitVFX: {fileID: 0}
+    SkillAbilities:
+    - rid: 8638601405152886927
+  references:
+    version: 2
+    RefIds:
+    - rid: 8638601405152886884
+      type: {class: HitBasicAttack, ns: , asm: Assembly-CSharp}
+      data:
+        damageValue: 1
+    - rid: 8638601405152886927
+      type: {class: BuffSlow, ns: , asm: Assembly-CSharp}
+      data:
+        slowValue: 0.3
+        duration: 0

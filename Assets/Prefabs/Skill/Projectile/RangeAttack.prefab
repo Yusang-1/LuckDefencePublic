@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682572632472211719}
   - component: {fileID: 1348419935036027829}
-  - component: {fileID: -7125229754324763573}
+  - component: {fileID: -2486255408379644547}
   m_Layer: 0
   m_Name: RangeAttack
   m_TagString: Untagged
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7125229754324763573
+--- !u!114 &-2486255408379644547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4708380461413599904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8408403a37dd00c43ba3626e8fb96eca, type: 3}
+  m_Script: {fileID: 11500000, guid: 02629eff68c53b04faff61b83ed3362e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitRange: 0.5
+  speed: 4.4
+  hitRange: 0.8

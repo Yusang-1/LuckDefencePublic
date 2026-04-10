@@ -23,6 +23,15 @@ MonoBehaviour:
   defaultDefencePoint: 0
   MoveSpeed: 3
   Prefab: {fileID: 7964986942513546205, guid: 74d64cd7e78329f4081e253ad1992622, type: 3}
-  rank: 0
+  rank: 1
   dropCoin: 25
-  Skill: {fileID: 0}
+  SkillData:
+    skillName: Stun
+    skillDescription: Stun
+    projectile: {fileID: 0}
+    poolCount: 0
+    hitVFX: {fileID: 0}
+    SkillAbilities: []
+  references:
+    version: 2
+    RefIds: []

@@ -11,7 +11,7 @@ public class EntitySO : ScriptableObject
     public int AttackPoint;
     public float AttackSpeed;
     public float AttackRange;
-    public float defaultDefencePoint;    
+    public float defaultDefencePoint;
     public float MoveSpeed;
     public GameObject Prefab;
 }

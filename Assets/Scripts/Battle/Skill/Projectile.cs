@@ -1,54 +1,67 @@
 using UnityEngine;
+using System;
 
 public class Projectile : MonoBehaviour
 {
+    public event Action<Entity> projectileHit;
+    private BattleSkillData battleSkillData;
+    
+    [SerializeField] private float speed;
     [SerializeField] protected float hitRange;
+    
     protected bool haveTarget;
+    protected Entity subject;
     protected Entity target;
-    protected ISkill[] skills;
-    protected float speed;
+    protected Vector3 targetPosition => target.transform.position;
     
-    protected Vector3 direction;
-    
-    protected virtual void Update()
+    private void Update()
     {
         if(haveTarget == false) return;
         
-        //타겟으로 이동
-        direction = (target.transform.position - transform.position).normalized;
-        transform.position += direction * Time.deltaTime * speed;
+        MoveProjectile();
+    }        
+    
+    private void MoveProjectile()
+    {
+        Vector3 directionVector = (targetPosition - transform.position).normalized;
         
-        //타겟과의 거리 확인
-        if(Vector3.Distance(transform.position, target.transform.position) <= hitRange)
+        transform.position += directionVector * speed * Time.deltaTime;
+        if(Vector3.Distance(transform.position, targetPosition) <= hitRange)
         {
-            HitTarget(target);
+            projectileHit?.Invoke(target);
+            ResetProjectile();
         }
-    }
+    }    
     
-    protected virtual void HitTarget(Entity target)
+    public void SetProjectile(Entity subject, Entity target)
     {
-        foreach(var skill in skills)
-        {
-            skill.UseSkill(target);
-        }        
-            
-        ResetProjectile();
-        gameObject.SetActive(false);
-    }
-    
-    public void SetTarget(Entity target, ISkill[] skills, float speed)
-    {
+        this.subject = subject;
         this.target = target;
-        this.skills = skills;
-        this.haveTarget = true;
-        this.speed = speed;
+        haveTarget = true;
+        
+        transform.position = subject.transform.position;
     }
     
-    protected void ResetProjectile()
+    public virtual void SetProjectile(Entity subject, Entity target, BattleSkillData skillData)
     {
-        this.target = null;
-        this.skills = null;
-        this.haveTarget = false;
-        this.speed = 0f;
+        this.subject = subject;
+        this.target = target;
+        haveTarget = true;
+        
+        battleSkillData = skillData;
+        projectileHit += battleSkillData.UseSkillList;
+        
+        transform.position = subject.transform.position;
+    }
+    
+    public virtual void ResetProjectile()
+    {
+        subject = null;
+        target = null;
+        haveTarget = false;
+        
+        projectileHit -= battleSkillData.UseSkillList;
+        
+        gameObject.SetActive(false);
     }
 }

@@ -20,9 +20,9 @@ public class BattleUIManager : MonoBehaviour
     public EndStagePanelUI EndStagePanelUI => endStagePanelUI;
     public EscMenuUI EscMenuUI => escMenuUI;
 
-    public void Initialize(StageSO stageData)
+    public void Initialize(StageSO stageData, BattleTimer timer)
     {
-        timerUI.Initialize();
+        timerUI.Initialize(timer);
         resourcesUI.Initialize();
         EnemyCountUI.Initialize(stageData.MaxEnemyCount);
         summonUI.Initialize();

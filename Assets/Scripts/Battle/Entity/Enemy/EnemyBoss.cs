@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyBoss : Enemy, ISkillusable
 {
+    private BattleEnemyBossData battleEnemyBossData => battleData as BattleEnemyBossData;
+    
     public override void TakeDamage(int damage)
     {
         BattleData.CurrentHP -= damage;
@@ -9,13 +11,18 @@ public class EnemyBoss : Enemy, ISkillusable
         GetMP(Data.GetMPPoint);
     }
     
+    public void GetMP()
+    {
+        battleEnemyBossData.CurrentMP += battleEnemyBossData.GetMPPoint;
+    } 
+    
     public void GetMP(int amount)
     {
-        BattleData.CurrentMP += amount;
-    }    
+        battleEnemyBossData.CurrentMP += amount;
+    }
 
     public void UseSkill(IDamagable target)
     {
-        BattleData.CurrentMP = 0;
+        battleEnemyBossData.CurrentMP = 0;
     }
 }

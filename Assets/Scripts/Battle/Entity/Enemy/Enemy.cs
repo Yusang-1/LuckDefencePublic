@@ -1,10 +1,19 @@
 ﻿public class Enemy : Entity, IDamagable
 {
     private bool isDied;
+    public bool IsDied => isDied;
 
     public override void EntityActivated()
     {
-        base.EntityActivated();
+        //Debug.Log($"{gameObject.name} activated");
+        if(battleData == null)
+        {
+            battleData = new BattleEnemyData(Data, this);
+        }
+        else
+        {
+            battleData.UpdateData(Data, this);
+        }
 
         EnemyList.Activated(this);
 
@@ -15,7 +24,7 @@
 
     public virtual void TakeDamage(int damage)
     {
-        BattleData.CurrentHP -= damage;        
+        BattleData.CurrentHP -= damage;
     }
 
     public void Die()

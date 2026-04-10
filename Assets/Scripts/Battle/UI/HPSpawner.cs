@@ -1,37 +1,64 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class HPSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject m_HPUI;
+    [SerializeField] private GameObject HPUIObject;
     [SerializeField] private Transform poolTransform;
 
-    private HPUI[] hpUIs;
+    private HPUIController[] hpUIs;
+    
+    private const int minCreationAmount = 10;
 
     public void Initialize(StageSO stageData)
     {
-        GameObject hpUI;
+        hpUIs = Array.Empty<HPUIController>();
         int maxEnemyCount = stageData.MaxEnemyCount;
-        hpUIs = new HPUI[maxEnemyCount];
-
-        for (int i = 0; i < maxEnemyCount; i++)
+        CreateHPUI(maxEnemyCount + minCreationAmount);
+    }
+    
+    private void CreateHPUI(int amount)
+    {
+        int beforeLength = hpUIs.Length;
+        int newSize = beforeLength + amount;
+        HPUIController[] temp = new HPUIController[newSize];
+        Array.Copy(hpUIs, temp, beforeLength);
+        hpUIs = temp;
+        
+        GameObject hpUI;
+        for (int i = beforeLength; i < newSize; i++)
         {
-            hpUI = Instantiate(m_HPUI, poolTransform);
+            hpUI = Instantiate(HPUIObject, poolTransform);
             hpUI.SetActive(false);
 
-            hpUIs[i] = hpUI.GetComponent<HPUI>();
+            hpUIs[i] = hpUI.GetComponent<HPUIController>();
         }
     }
 
-    public void ActivateHP(Entity entity)
+    public HPUIController ActivateHP(Entity entity)
     {
-        foreach(HPUI hpUI in hpUIs)
+        bool isSuccess = false;
+        HPUIController hp = null;
+        
+        foreach(HPUIController hpUI in hpUIs)
         {
             if(hpUI.IsMatched == false)
             {
+                hp = hpUI;
                 hpUI.matchEntity(entity);
+                isSuccess = true;
                 break;
             }
         }
+        
+        if(isSuccess == false)
+        {
+            CreateHPUI(minCreationAmount);
+            hp = hpUIs[hpUIs.Length - 1];
+            hp.matchEntity(entity);
+        }
+        
+        return hp;
     }
 
     public void OnDeactiveAllHP()
