@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-public class BattleUIManager : MonoBehaviour
+public class BattleUIManager : Manager
 {
     [SerializeField] private GameObject battleUI;
     [SerializeField] private GameObject loadingUI;
@@ -11,6 +12,7 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private StartStageButton startStageButton;
     [SerializeField] private EndStagePanelUI endStagePanelUI;
     [SerializeField] private EscMenuUI escMenuUI;
+    [SerializeField] private SelectPlatformUIContainer selectPlayformContainer;
 
     [Space]
     [SerializeField] private BattleDataSO battleData;
@@ -20,16 +22,21 @@ public class BattleUIManager : MonoBehaviour
     public EndStagePanelUI EndStagePanelUI => endStagePanelUI;
     public EscMenuUI EscMenuUI => escMenuUI;
 
-    public void Initialize(StageSO stageData, BattleTimer timer)
+    public IEnumerator Initialize(StageSO stageData, BattleTimer timer)
     {
+        isStartCompleted = false;
+        
         timerUI.Initialize(timer);
         resourcesUI.Initialize();
         EnemyCountUI.Initialize(stageData.MaxEnemyCount);
         summonUI.Initialize();
-        startStageButton.Initialize();
+        
+        yield return selectPlayformContainer.Initialize();        
 
         battleData.EnoughCoin += summonUI.EnableButton;
         battleData.NotEnoughCoin += summonUI.DisableButton;
+        
+        isStartCompleted = true;
     }
 
     private void OnDestroy()
@@ -50,5 +57,6 @@ public class BattleUIManager : MonoBehaviour
     {
         loadingUI.SetActive(false);
         battleUI.SetActive(true);
+        startStageButton.Initialize();
     }
 }

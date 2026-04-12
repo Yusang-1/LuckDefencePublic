@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LobbyUIManager : MonoBehaviour
+public class LobbyUIManager : Manager
 {
     [SerializeField] private LowerUI lowerUI;
     [SerializeField] private CharacterShopUI characterShopUI;
@@ -15,6 +15,8 @@ public class LobbyUIManager : MonoBehaviour
 
     private IEnumerator Start()
     {
+        isStartCompleted = false;
+        
         yield return StartCoroutine(characterShopUI.Initialize());
 
         yield return StartCoroutine(lowerUI.Initialize());
@@ -23,6 +25,8 @@ public class LobbyUIManager : MonoBehaviour
 
         stateMachine = new LobbyUIStateMachine(this, FindAnyObjectByType<GameManager>());
         stateMachine.Initialize(stateMachine.LobbyState);
+        
+        isStartCompleted = true;
     }
 
     public void OpenUIState(ILobbyUIState state)

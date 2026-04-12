@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
@@ -32,7 +33,7 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
             charPrice.text = (selectedEntity.Data as CharacterSO).price.ToString();
         }
     }
-
+    
     public override IEnumerator Initialize()
     {
         gameObject.SetActive(true);
@@ -48,7 +49,11 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
         height += allCharListUIs[allCharListUIs.Length - 1].GetUIHeight() / 2;
 
         contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, height);
-
+        
+        foreach(var uiAnimation in uiAnimations)
+        {
+            yield return uiAnimation.Initizlize();
+        }
         gameObject.SetActive(false);
     }
 

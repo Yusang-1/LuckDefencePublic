@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LowerUI : MonoBehaviour, ILobbyUIState, IUIAnimation
 {
     [SerializeField] private UIAnimation uiAnimation;
     [SerializeField] private float uiOpenTime;
     private IEnumerator deactiveUICoroutine;
-
+    
     public IEnumerator Initialize()
     {
-        yield return null;
+        yield return uiAnimation.Initizlize();
     }
 
     public void ActiveUI()

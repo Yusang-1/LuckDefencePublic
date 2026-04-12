@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Manager
 {
     [SerializeField] private LobbyUIManager lobbyUI;
     [SerializeField] private BattleUIManager battleUI;
@@ -28,7 +28,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        isStartCompleted = false;
+        
         currentActiveMainUI = lobbyUI.gameObject;
+        
+        isStartCompleted = true;
     }
 
     public void ChangeMainUI()

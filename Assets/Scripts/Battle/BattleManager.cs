@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : Manager
 {
     [Header("Managers")]
     [SerializeField] private StageManager stageManager;
@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator Start()
     {
+        isStartCompleted = false;
+        
         battleUIManager = FindFirstObjectByType<BattleUIManager>();
         hpSpawner = FindFirstObjectByType<HPSpawner>();
 
@@ -54,6 +56,8 @@ public class BattleManager : MonoBehaviour
         yield return characterSpawner.Initialize(charListData);
 
         battleUIManager.EnableBattleUI();
+        
+        isStartCompleted = true;
     }
 
     private void OnDestroy()

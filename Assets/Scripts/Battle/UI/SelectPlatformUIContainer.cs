@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectPlatformUIContainer : MonoBehaviour
 {
     [SerializeField] private SelectPlatformUI m_UIRight;
     [SerializeField] private SelectPlatformUI m_UILeft;
-
+    
+    [SerializeField] private CanvasScaler canvasScaler;
+    
     private Platforms platforms;
 
-    public void Start()
+    public IEnumerator Initialize()
     {
         if(platforms == null)
         {
@@ -17,9 +21,19 @@ public class SelectPlatformUIContainer : MonoBehaviour
         platforms.PlatformSelected += OpenUI;
         platforms.NoPlatformSelected += CloseUI;
         platforms.PlatformDataChanged += UpdateUI;
-
+        
+        // float ratioX = canvasScaler.referenceResolution.x / Screen.width;
+        // float ratioY = canvasScaler.referenceResolution.y / Screen.height;
+        
+        // Vector3 posRight = Camera.main.ViewportToScreenPoint(new Vector3(1,0,0));
+        // posRight.x *= ratioX;
+        // posRight.y *= ratioY;
+        // Vector3 posLeft = Camera.main.ViewportToScreenPoint(new Vector3(0,0,0));
+        // posLeft.x *= ratioX;
+        // posLeft.y *= ratioY;
+        
         m_UIRight.Initialize();
-        m_UILeft.Initialize();
+        yield return m_UILeft.Initialize();
     }
 
     private void OnDestroy()

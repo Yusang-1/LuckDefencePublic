@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
 {
@@ -47,7 +48,12 @@ public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
         height += ownedCharListUIs[ownedCharListUIs.Length - 1].GetUIHeight() / 2;
 
         contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, height);
-
+        
+        foreach(var uiAnimation in uiAnimations)
+        {
+            yield return uiAnimation.Initizlize();
+        }
+        
         gameObject.SetActive(false);
     }
 

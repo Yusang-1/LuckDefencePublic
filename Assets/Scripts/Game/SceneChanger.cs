@@ -11,7 +11,8 @@ public class SceneChanger : MonoBehaviour
 
     [SerializeField] private static GameManager gameManagerStatic;
     [SerializeField] private static LoadingUI loadingUIStatic;
-
+    
+    private static Manager[] managers;
     static AsyncOperation asyncOperation;
 
     private void Start()
@@ -39,25 +40,50 @@ public class SceneChanger : MonoBehaviour
         while (asyncOperation.isDone == false)
         {
             loadingUIStatic.LoadingBarUI.SetLoadingBar(asyncOperation.progress);
-
-            if(asyncOperation.progress == 0.9f && loadingUIStatic.IsPressScreen == false)
+            
+            if(asyncOperation.progress == 0.9f)
             {
-                loadingUIStatic.LoadingCompleted();                
-            }
-
-            if (loadingUIStatic.IsPressScreen == true)
-            {
+                loadingUIStatic.LoadingCompleted();
                 asyncOperation.allowSceneActivation = true;
+                yield return WaitForStart();
             }
             yield return null;
         }
-
+        
+        loadingUIStatic.LoadingCompleted();
+        OnLoadOperationCompleted();
+        
         asyncOperation.completed -= OnLoadOperationCompleted;
         loadingUIStatic.gameObject.SetActive(false);
+    }
+    
+    private static IEnumerator WaitForStart()
+    {
+        managers = FindObjectsByType<Manager>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        int count;
+        while(true)
+        {
+            count = 0;
+            foreach(var manager in managers)
+            {
+                if(manager.isStartCompleted) count++;                
+            }
+            yield return null;
+            if(count == managers.Length) break;
+        }
+        
+        while(!loadingUIStatic.IsPressScreen)
+        {
+            yield return null;
+        }
     }
 
     private static void OnLoadOperationCompleted(AsyncOperation asyncOperation)
     {
-        gameManagerStatic.Initialize();
+        gameManagerStatic.Initialize();                        
+    }
+    private static void OnLoadOperationCompleted()
+    {
+        gameManagerStatic.Initialize();                        
     }
 }

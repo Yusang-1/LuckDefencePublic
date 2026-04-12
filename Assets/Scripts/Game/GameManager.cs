@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Manager
 {
     [SerializeField] private UIManager uiManager;    
     [SerializeField] private SaveLoad saveLoad;
@@ -27,7 +27,11 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        isStartCompleted = false;
+        
         saveLoad.LoadGame();
+        
+        isStartCompleted = true;
     }
 
     void OnDestroy()

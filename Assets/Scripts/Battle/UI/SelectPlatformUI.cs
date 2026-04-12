@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 public class SelectPlatformUI : MonoBehaviour, IUIAnimation
@@ -22,10 +23,10 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
     private bool isOpen;
 
     public bool IsOpen => isOpen;
-
-    public void Initialize()
+    
+    public IEnumerator Initialize()
     {
-        gameObject.SetActive(false);
+        yield return StartCoroutine(uiAnimation.Initizlize());
 
         promotionButton.interactable = false;
     }
