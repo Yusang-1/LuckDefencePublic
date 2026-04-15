@@ -39,8 +39,13 @@ public class GameManager : Manager
         saveLoad.SaveGame();
     }
 
-    public void Initialize()
+    public void ActiveUIAfterLoad()
     {
         uiManager.ChangeMainUI();
+    }
+    
+    public void DeactivePrevUIAfterLoad()
+    {
+        uiManager.DeActivePrevMainUI();
     }
 }

@@ -12,7 +12,8 @@ public class BattleTimerUI : UIPresenter
 
     private void OnDestroy()
     {
-        timer.TimeChanged -= OnUpdateUI;
+        if(timer != null)
+            timer.TimeChanged -= OnUpdateUI;
     }
 
     public void Initialize(BattleTimer timer)

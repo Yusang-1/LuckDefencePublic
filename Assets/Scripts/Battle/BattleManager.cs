@@ -23,20 +23,33 @@ public class BattleManager : Manager
     [SerializeField] private BattleSpeedController speedController;
     [SerializeField] private BattleTimer battleTimer;
 
-    public IEnumerator Start()
+    private IEnumerator Start()
     {
         isStartCompleted = false;
-        
-        battleUIManager = FindFirstObjectByType<BattleUIManager>();
-        hpSpawner = FindFirstObjectByType<HPSpawner>();
 
         battleData.Initialize(stageData);
         speedController.Initialize();
         enemySpawner.Initialize(stageData.RoundData);
-        hpSpawner.Initialize(stageData);
         battleTimer = new BattleTimer();
-        battleUIManager.Initialize(stageData, battleTimer);
-        //battleTimer.Initialize();
+        
+        float errorTime = 0;
+        while(battleUIManager == null || hpSpawner == null)
+        {
+            battleUIManager = FindFirstObjectByType<BattleUIManager>();
+            hpSpawner = FindFirstObjectByType<HPSpawner>();
+            
+            errorTime += Time.deltaTime;
+            if(errorTime > 5)
+            {
+                Debug.LogError("Failed to find BattleUIManager or HPSpawner.");
+                break;
+            }
+            
+            yield return null;
+        }
+        
+        hpSpawner.Initialize(stageData);
+        yield return battleUIManager.Initialize(stageData, battleTimer);
 
         battleData.StartNextRound += enemySpawner.SpawnEnemy;
         battleData.StartNextRound += battleTimer.OnStartTimerAddTime;
@@ -50,8 +63,6 @@ public class BattleManager : Manager
 
         battleUIManager.EndStagePanelUI.RetryStage += OnRestartBattle;
         battleUIManager.EscMenuUI.RetryStage += OnRestartBattle;
-
-        yield return null;
 
         yield return characterSpawner.Initialize(charListData);
 

@@ -13,9 +13,21 @@ public class EnemySpawner : MonoBehaviour
 
     private Dictionary<RoundData, Entity[]> entitiesByRoundData;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        hpSpawner = FindFirstObjectByType<HPSpawner>();        
+        float errorTime = 0;
+        while(hpSpawner == null)
+        {
+            hpSpawner = FindFirstObjectByType<HPSpawner>();
+            
+            errorTime += Time.deltaTime;
+            if(errorTime > 5)
+            {
+                Debug.LogError("Failed to find HPSpawner.");
+                break;
+            }            
+            yield return null;
+        }
     }
 
     public void Initialize(RoundData[] roundDatas)

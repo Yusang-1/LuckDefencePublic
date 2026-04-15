@@ -32,20 +32,23 @@ public class SelectPlatformUIContainer : MonoBehaviour
         // posLeft.x *= ratioX;
         // posLeft.y *= ratioY;
         
-        m_UIRight.Initialize();
+        yield return m_UIRight.Initialize();
         yield return m_UILeft.Initialize();
     }
 
     private void OnDestroy()
     {
-        platforms.PlatformSelected -= OpenUI;
-        platforms.NoPlatformSelected -= CloseUI;
-        platforms.PlatformDataChanged -= UpdateUI;
+        if(platforms != null)
+        {
+            platforms.PlatformSelected -= OpenUI;
+            platforms.NoPlatformSelected -= CloseUI;
+            platforms.PlatformDataChanged -= UpdateUI;            
+        }
     }
 
     public void OpenUI(Platform platform)
     {
-        if (Camera.main.WorldToScreenPoint(platform.transform.position).x >= Camera.main.WorldToScreenPoint(new Vector3(0, 0, 0)).x)
+        if (Camera.main.WorldToViewportPoint(platform.transform.position).x >= 0.5f)
         {
             OpenLeftUI(platform);
         }

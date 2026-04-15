@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Manager
 {
+    [SerializeField] private TitleUI titleUI;
     [SerializeField] private LobbyUIManager lobbyUI;
     [SerializeField] private BattleUIManager battleUI;
     [SerializeField] private LoadingUI loadingUI;    
-    [SerializeField] private GameObject currentActiveMainUI;
+    private GameObject currentActiveMainUI;
+    private GameObject prevActiveMainUI;
 
     [SerializeField] private GameObject[] MainUIListBySceneIndex;
 
@@ -30,21 +32,29 @@ public class UIManager : Manager
     {
         isStartCompleted = false;
         
-        currentActiveMainUI = lobbyUI.gameObject;
+        currentActiveMainUI = titleUI.gameObject;
         
         isStartCompleted = true;
     }
 
     public void ChangeMainUI()
-    {
-        loadingUI.gameObject.SetActive(false);
+    {        
         if(currentActiveMainUI != null)
         {
-            currentActiveMainUI.SetActive(false);
+            prevActiveMainUI = currentActiveMainUI;
         }
 
         currentActiveMainUI = MainUIListBySceneIndex[SceneManager.GetActiveScene().buildIndex];
 
         currentActiveMainUI.SetActive(true);
+    }
+    
+    public void DeActivePrevMainUI()
+    {
+        if (prevActiveMainUI != null)
+        {
+            prevActiveMainUI.SetActive(false);
+        }
+        loadingUI.gameObject.SetActive(false);
     }
 }

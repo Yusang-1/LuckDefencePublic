@@ -49,12 +49,11 @@ public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
 
         contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, height);
         
+        gameObject.SetActive(false);
         foreach(var uiAnimation in uiAnimations)
         {
             yield return uiAnimation.Initizlize();
-        }
-        
-        gameObject.SetActive(false);
+        }        
     }
 
     public void OpenUI()

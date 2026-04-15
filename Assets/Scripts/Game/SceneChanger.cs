@@ -33,32 +33,26 @@ public class SceneChanger : MonoBehaviour
     private static IEnumerator LoadSceneAsyncCoroutine(string sceneName)
     {
         asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        asyncOperation.allowSceneActivation = false;
-
-        asyncOperation.completed += OnLoadOperationCompleted;
 
         while (asyncOperation.isDone == false)
         {
             loadingUIStatic.LoadingBarUI.SetLoadingBar(asyncOperation.progress);
             
-            if(asyncOperation.progress == 0.9f)
-            {
-                loadingUIStatic.LoadingCompleted();
-                asyncOperation.allowSceneActivation = true;
-                yield return WaitForStart();
-            }
             yield return null;
         }
         
+        ActiveUIAfterLoad();
+        yield return WaitForStart();
         loadingUIStatic.LoadingCompleted();
-        OnLoadOperationCompleted();
-        
-        asyncOperation.completed -= OnLoadOperationCompleted;
-        loadingUIStatic.gameObject.SetActive(false);
+        DeactivePrevUIAfterLoad();
     }
     
+    /// <summary>
+    /// Manager클래스의 start완료를 확인하는 코루틴
+    /// </summary>
+    /// <returns></returns>
     private static IEnumerator WaitForStart()
-    {
+    {        
         managers = FindObjectsByType<Manager>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         int count;
         while(true)
@@ -71,19 +65,15 @@ public class SceneChanger : MonoBehaviour
             yield return null;
             if(count == managers.Length) break;
         }
-        
-        while(!loadingUIStatic.IsPressScreen)
-        {
-            yield return null;
-        }
     }
-
-    private static void OnLoadOperationCompleted(AsyncOperation asyncOperation)
+    
+    private static void ActiveUIAfterLoad()
     {
-        gameManagerStatic.Initialize();                        
+        gameManagerStatic.ActiveUIAfterLoad();
     }
-    private static void OnLoadOperationCompleted()
+    
+    private static void DeactivePrevUIAfterLoad()
     {
-        gameManagerStatic.Initialize();                        
-    }
+        gameManagerStatic.DeactivePrevUIAfterLoad();
+    }    
 }

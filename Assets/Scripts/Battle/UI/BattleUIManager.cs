@@ -12,7 +12,7 @@ public class BattleUIManager : Manager
     [SerializeField] private StartStageButton startStageButton;
     [SerializeField] private EndStagePanelUI endStagePanelUI;
     [SerializeField] private EscMenuUI escMenuUI;
-    [SerializeField] private SelectPlatformUIContainer selectPlayformContainer;
+    [SerializeField] private SelectPlatformUIContainer selectPlatformContainer;
 
     [Space]
     [SerializeField] private BattleDataSO battleData;
@@ -31,7 +31,7 @@ public class BattleUIManager : Manager
         EnemyCountUI.Initialize(stageData.MaxEnemyCount);
         summonUI.Initialize();
         
-        yield return selectPlayformContainer.Initialize();        
+        yield return selectPlatformContainer.Initialize();        
 
         battleData.EnoughCoin += summonUI.EnableButton;
         battleData.NotEnoughCoin += summonUI.DisableButton;
