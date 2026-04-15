@@ -31,7 +31,7 @@
 
 ### 전투
 
-<img width="1500" height="834" alt="스크린샷 2026-03-25 183226" src="https://github.com/user-attachments/assets/a7184730-ef1f-42af-9440-d78e4264de50" />
+<img width="865" height="482" alt="스크린샷 2026-03-25 183226-2" src="https://github.com/user-attachments/assets/98237e31-4007-43ee-a946-f99e6fca57ca" />
 
 캐릭터가 서 있는 땅을 클릭하면 정보를 확인할 수 있습니다.
 같은 캐릭터가 3개 모이면 Promotion 버튼을 눌러 승급할 수 있습니다.
