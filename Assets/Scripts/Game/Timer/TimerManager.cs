@@ -20,9 +20,9 @@ public class TimerManager : MonoBehaviour
             return;
         }
         
-        foreach(var timer in timers)
+        for(int i = 0; i < timers.Count; i++)
         {
-            timer.TimerUpdate();
+            timers[i].TimerUpdate();
         }
     }
     

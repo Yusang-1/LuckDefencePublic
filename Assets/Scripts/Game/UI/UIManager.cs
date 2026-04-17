@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : Manager
 {
@@ -30,31 +29,28 @@ public class UIManager : Manager
 
     private void Start()
     {
-        isStartCompleted = false;
-        
         currentActiveMainUI = titleUI.gameObject;
-        
-        isStartCompleted = true;
     }
 
-    public void ChangeMainUI()
-    {        
-        if(currentActiveMainUI != null)
-        {
-            prevActiveMainUI = currentActiveMainUI;
-        }
+    // public void ChangeMainUI()
+    // {        
+    //     if(currentActiveMainUI != null)
+    //     {
+    //         prevActiveMainUI = currentActiveMainUI;
+    //     }
 
-        currentActiveMainUI = MainUIListBySceneIndex[SceneManager.GetActiveScene().buildIndex];
+    //     currentActiveMainUI = MainUIListBySceneIndex[SceneManager.GetActiveScene().buildIndex];
 
-        currentActiveMainUI.SetActive(true);
-    }
+    //     currentActiveMainUI.SetActive(true);
+    // }
     
     public void DeActivePrevMainUI()
     {
-        if (prevActiveMainUI != null)
-        {
-            prevActiveMainUI.SetActive(false);
-        }
+        // if (prevActiveMainUI != null)
+        // {
+        //     prevActiveMainUI.SetActive(false);
+        // }
+        titleUI.gameObject.SetActive(false);
         loadingUI.gameObject.SetActive(false);
     }
 }

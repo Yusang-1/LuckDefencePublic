@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class ResourcesUI : UIPresenter
+public class ResourcesUI : UIPresenter<int>
 {
     [SerializeField] private TextMeshProUGUI coinText;
     [SerializeField] private TextMeshProUGUI jewlText;
@@ -18,12 +18,12 @@ public class ResourcesUI : UIPresenter
         battleData.CoinChanged += OnUpdateUI;
     }
 
-    public override void OnUpdateUI<T>(T item)
+    public override void OnUpdateUI(int item)
     {
         UpdateCoinUI(item);
     }
 
-    private void UpdateCoinUI<T>(T item)
+    private void UpdateCoinUI(int item)
     {
         coinText.text = item.ToString();
     }

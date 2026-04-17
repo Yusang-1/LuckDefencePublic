@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
     private HPSpawner hpSpawner;
-    [SerializeField] private Transform spawnArea;
 
     [SerializeField] private BattleDataSO battleData;
 
@@ -13,25 +12,10 @@ public class EnemySpawner : MonoBehaviour
 
     private Dictionary<RoundData, Entity[]> entitiesByRoundData;
 
-    private IEnumerator Start()
+    public void Initialize(RoundData[] roundDatas, HPSpawner hpSpawner, Transform spawnArea)
     {
-        float errorTime = 0;
-        while(hpSpawner == null)
-        {
-            hpSpawner = FindFirstObjectByType<HPSpawner>();
-            
-            errorTime += Time.deltaTime;
-            if(errorTime > 5)
-            {
-                Debug.LogError("Failed to find HPSpawner.");
-                break;
-            }            
-            yield return null;
-        }
-    }
+        this.hpSpawner = hpSpawner;
 
-    public void Initialize(RoundData[] roundDatas)
-    {
         GameObject go;
         Entity[] entities;
         entitiesByRoundData = new Dictionary<RoundData, Entity[]>();

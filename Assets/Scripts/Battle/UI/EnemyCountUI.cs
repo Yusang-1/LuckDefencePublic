@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class EnemyCountUI : UIPresenter
+public class EnemyCountUI : UIPresenter<int>
 {
     [SerializeField] private TextMeshProUGUI enemyCountText;
     [SerializeField] private TextMeshProUGUI enemyLimitCountText;
@@ -23,7 +23,7 @@ public class EnemyCountUI : UIPresenter
         enemyLimitCountText.text = limitCount.ToString();
     }
 
-    public override void OnUpdateUI<T>(T item)
+    public override void OnUpdateUI(int item)
     {
         enemyCountText.text = item.ToString();
     }

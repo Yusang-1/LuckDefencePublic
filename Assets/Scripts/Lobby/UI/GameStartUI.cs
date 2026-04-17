@@ -2,8 +2,13 @@
 
 public class GameStartUI : MonoBehaviour
 {
-    [SerializeField] CharacterData characterData;    
+    private CharacterData characterData;    
     [SerializeField] private OpenManageCharacterUI openManageCharacterUI;
+    
+    public void Initialize(CharacterData characterData)
+    {
+        this.characterData = characterData;
+    }
     
     public void OnGameStart()
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BattleUIManager : Manager
+public class BattleUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject battleUI;
-    [SerializeField] private GameObject loadingUI;
+    //[SerializeField] private GameObject loadingUI;
     [SerializeField] private BattleTimerUI timerUI;
     [SerializeField] private ResourcesUI resourcesUI;
     [SerializeField] private EnemyCountUI enemyCountUI;
@@ -13,6 +13,7 @@ public class BattleUIManager : Manager
     [SerializeField] private EndStagePanelUI endStagePanelUI;
     [SerializeField] private EscMenuUI escMenuUI;
     [SerializeField] private SelectPlatformUIContainer selectPlatformContainer;
+    [SerializeField] private HPSpawner hpSpawner;
 
     [Space]
     [SerializeField] private BattleDataSO battleData;
@@ -21,11 +22,11 @@ public class BattleUIManager : Manager
     public StartStageButton StartStageButton => startStageButton;
     public EndStagePanelUI EndStagePanelUI => endStagePanelUI;
     public EscMenuUI EscMenuUI => escMenuUI;
+    public HPSpawner HpSpawner => hpSpawner;
+
 
     public IEnumerator Initialize(StageSO stageData, BattleTimer timer)
-    {
-        isStartCompleted = false;
-        
+    {                
         timerUI.Initialize(timer);
         resourcesUI.Initialize();
         EnemyCountUI.Initialize(stageData.MaxEnemyCount);
@@ -34,9 +35,7 @@ public class BattleUIManager : Manager
         yield return selectPlatformContainer.Initialize();        
 
         battleData.EnoughCoin += summonUI.EnableButton;
-        battleData.NotEnoughCoin += summonUI.DisableButton;
-        
-        isStartCompleted = true;
+        battleData.NotEnoughCoin += summonUI.DisableButton;                
     }
 
     private void OnDestroy()
@@ -55,7 +54,7 @@ public class BattleUIManager : Manager
 
     public void EnableBattleUI()
     {
-        loadingUI.SetActive(false);
+        //loadingUI.SetActive(false);
         battleUI.SetActive(true);
         startStageButton.Initialize();
     }

@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public class CharacterSpawner : MonoBehaviour
 {    
-    [SerializeField] private AbstractFactory[] factories;
     [SerializeField] private RankProbabilitySO probabilityData;
-    [SerializeField] private Platforms platforms;
     [SerializeField] private BattleDataSO battleData;
+    private CharacterFactoryContainer factoryContainer;
+    private AbstractFactory[] factories => factoryContainer.Factories;
+    private BattleMap battleMap;
+    private Platforms platforms => battleMap.Platforms;
 
     private CharacterListDataSO charListData;
 
@@ -19,9 +21,11 @@ public class CharacterSpawner : MonoBehaviour
 
     public Dictionary<CharRank, AbstractFactory> FactoryDict => factoryDict;
 
-    public IEnumerator Initialize(CharacterListDataSO characterListData)
+    public IEnumerator Initialize(CharacterListDataSO characterListData, BattleMap battleMap, CharacterFactoryContainer factoryContainer)
     {
         charListData = characterListData;
+        this.battleMap = battleMap;
+        this.factoryContainer = factoryContainer;
         factoryDict = new Dictionary<CharRank, AbstractFactory>();
         summonableRanks = new List<CharRank>();
         summonableCharacterCodes = new List<int>();

@@ -3,7 +3,7 @@
 public class EnemyMover : EntityMover
 {
     private int currentBeaconIndex;
-
+    
     private void Update()
     {
         Move();
@@ -12,13 +12,12 @@ public class EnemyMover : EntityMover
     public override void Initialize(Entity entity)
     {
         base.Initialize(entity);
-
         currentBeaconIndex = 0;
         directionVector = GetDestinationVector(transform.position);
     }
 
     public override Vector3 GetDestinationVector(Vector3 position)
-    {
+    {        
         transform.position = BeaconContainer.s_Beacons[currentBeaconIndex].position;
 
         currentBeaconIndex++;

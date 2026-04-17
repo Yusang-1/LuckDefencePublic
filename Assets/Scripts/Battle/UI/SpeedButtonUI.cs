@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 
-public class SpeedButtonUI : UIPresenter
+public class SpeedButtonUI : UIPresenter<float>
 {
     [SerializeField] private TextMeshProUGUI speedValueText;
     [SerializeField] private Image speedImage;
@@ -25,12 +25,10 @@ public class SpeedButtonUI : UIPresenter
         speedController.GameSpeedChanged -= OnUpdateUI;
     }
 
-    public override void OnUpdateUI<T>(T item)
+    public override void OnUpdateUI(float item)
     {
-        float value = Convert.ToSingle(item);
-
-        ChangeSpeedValueText(value);
-        ChangeSpeedImage(value);
+        ChangeSpeedValueText(item);
+        ChangeSpeedImage(item);
     }
 
     private void ChangeSpeedValueText(float speedValue)

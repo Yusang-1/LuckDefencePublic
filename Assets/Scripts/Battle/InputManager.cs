@@ -4,13 +4,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] BattleManager manager;
-
     private ISelectableObject m_ISelectable;
     private Vector3 mousePosition;
     private bool isHold;
     private bool isPointerOverGameObject;
-
+    
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())

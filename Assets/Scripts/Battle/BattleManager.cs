@@ -1,54 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleManager : Manager
+public class BattleManager : Manager, IManagerSceneEntry
 {
     [Header("Managers")]
     [SerializeField] private StageManager stageManager;
-    private BattleUIManager battleUIManager;
+    [SerializeField] private BattleUIManager battleUIManager; //instantiate in runtime
 
     [Header("Spawners")]
-    [SerializeField] private CharacterSpawner characterSpawner;
-    [SerializeField] private EnemySpawner enemySpawner;
-    private HPSpawner hpSpawner;
+    [SerializeField] private CharacterSpawner characterSpawner; //instantiate in runtime
+    [SerializeField] private EnemySpawner enemySpawner; //instantiate in runtime
+    private HPSpawner hpSpawner => battleUIManager.HpSpawner;
 
     [Header("Datas")]
     [SerializeField] private StageSO stageData;
     [SerializeField] private BattleDataSO battleData;
     [SerializeField] private CharacterListDataSO charListData;
-    [SerializeField] private EnemyList enemyList;
+    [SerializeField] private EnemyList enemyList; //getComponent in runtime in enemySpawner
 
     [Space]
-    [SerializeField] private Platforms platforms;
+    [SerializeField] private BattleMap battleMap; //instantiate in runtime
+    private Platforms platforms => battleMap.Platforms;
     [SerializeField] private BattleSpeedController speedController;
     [SerializeField] private BattleTimer battleTimer;
-
-    private IEnumerator Start()
+    [SerializeField] private CharacterFactoryContainer characterFactoryContainer; //instantiate in runtime
+    
+    public IEnumerator Initialize()
     {
-        isStartCompleted = false;
-
         battleData.Initialize(stageData);
-        speedController.Initialize();
-        enemySpawner.Initialize(stageData.RoundData);
+        speedController.Initialize();        
         battleTimer = new BattleTimer();
         
-        float errorTime = 0;
-        while(battleUIManager == null || hpSpawner == null)
-        {
-            battleUIManager = FindFirstObjectByType<BattleUIManager>();
-            hpSpawner = FindFirstObjectByType<HPSpawner>();
-            
-            errorTime += Time.deltaTime;
-            if(errorTime > 5)
-            {
-                Debug.LogError("Failed to find BattleUIManager or HPSpawner.");
-                break;
-            }
-            
-            yield return null;
-        }
-        
+        battleUIManager = Instantiate(battleUIManager, FindAnyObjectByType<UIManager>().transform);
+        battleUIManager.transform.SetSiblingIndex(0);
+        characterFactoryContainer = Instantiate(characterFactoryContainer);
+        battleMap = Instantiate(battleMap);
+        battleMap.BeaconContainer.Initialize();
         hpSpawner.Initialize(stageData);
+        characterSpawner = Instantiate(characterSpawner);
+        enemySpawner = Instantiate(enemySpawner);        
+        enemySpawner.Initialize(stageData.RoundData, hpSpawner, BeaconContainer.s_Beacons[0]);
+        enemyList = enemySpawner.GetComponent<EnemyList>();
+        
         yield return battleUIManager.Initialize(stageData, battleTimer);
 
         battleData.StartNextRound += enemySpawner.SpawnEnemy;
@@ -64,11 +57,9 @@ public class BattleManager : Manager
         battleUIManager.EndStagePanelUI.RetryStage += OnRestartBattle;
         battleUIManager.EscMenuUI.RetryStage += OnRestartBattle;
 
-        yield return characterSpawner.Initialize(charListData);
+        yield return characterSpawner.Initialize(charListData, battleMap, characterFactoryContainer);
 
-        battleUIManager.EnableBattleUI();
-        
-        isStartCompleted = true;
+        battleUIManager.EnableBattleUI();        
     }
 
     private void OnDestroy()
@@ -124,5 +115,10 @@ public class BattleManager : Manager
     private void GameOver()
     {
         battleData.IsGameOver = true;
+    }
+
+    public void DestroyPrevUIAfterLoad()
+    {
+        Destroy(battleUIManager.gameObject);
     }
 }

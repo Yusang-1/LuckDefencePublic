@@ -34,9 +34,11 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
         }
     }
     
-    public override IEnumerator Initialize()
+    public IEnumerator Initialize(CharacterData characterData)
     {
         gameObject.SetActive(true);
+        
+        this.characterData = characterData;
 
         float height = 0;
         for (int i = 0; i < allCharListUIs.Length; i++)

@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class GameManager : Manager
 {
-    [SerializeField] private UIManager uiManager;    
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private TitleUI titleUI;
     [SerializeField] private SaveLoad saveLoad;
     [SerializeField] private PlayerResourcesSO playerResources;
     public UIManager UIManager => uiManager;
@@ -27,21 +29,17 @@ public class GameManager : Manager
     
     private void Start()
     {
-        isStartCompleted = false;
-        
+        Initialize();
+    }
+    
+    public void Initialize()
+    {
         saveLoad.LoadGame();
-        
-        isStartCompleted = true;
     }
 
     void OnDestroy()
     {
         saveLoad.SaveGame();
-    }
-
-    public void ActiveUIAfterLoad()
-    {
-        uiManager.ChangeMainUI();
     }
     
     public void DeactivePrevUIAfterLoad()

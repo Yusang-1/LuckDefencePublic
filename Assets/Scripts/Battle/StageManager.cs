@@ -1,13 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class StageManager : Manager
 {
     [SerializeField] private BattleDataSO battleData;
-
-    private void Start()
-    {
-        isStartCompleted = true;
-    }
     
     public void StartNextRound()
     {

@@ -12,6 +12,9 @@ public class SceneChanger : MonoBehaviour
     [SerializeField] private static GameManager gameManagerStatic;
     [SerializeField] private static LoadingUI loadingUIStatic;
     
+    [SerializeField] private SceneEntryPointData sceneEntryPointData;
+    private static SceneEntryPointData sceneEntryPointDataStatic => instance.sceneEntryPointData;
+    
     private static Manager[] managers;
     static AsyncOperation asyncOperation;
 
@@ -42,34 +45,37 @@ public class SceneChanger : MonoBehaviour
         }
         
         ActiveUIAfterLoad();
-        yield return WaitForStart();
+        yield return sceneEntryPointDataStatic.SceneChanged(sceneName);
+        //yield return WaitForStart();
         loadingUIStatic.LoadingCompleted();
         DeactivePrevUIAfterLoad();
+        
+        //GCController.CollectGarbage();
     }
     
     /// <summary>
     /// Manager클래스의 start완료를 확인하는 코루틴
     /// </summary>
     /// <returns></returns>
-    private static IEnumerator WaitForStart()
-    {        
-        managers = FindObjectsByType<Manager>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        int count;
-        while(true)
-        {
-            count = 0;
-            foreach(var manager in managers)
-            {
-                if(manager.isStartCompleted) count++;                
-            }
-            yield return null;
-            if(count == managers.Length) break;
-        }
-    }
+    // private static IEnumerator WaitForStart()
+    // {        
+    //     managers = FindObjectsByType<Manager>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+    //     int count;
+    //     while(true)
+    //     {
+    //         count = 0;
+    //         foreach(var manager in managers)
+    //         {
+    //             if(manager.isInitialized) count++;                
+    //         }
+    //         yield return null;
+    //         if(count == managers.Length) break;
+    //     }
+    // }
     
     private static void ActiveUIAfterLoad()
     {
-        gameManagerStatic.ActiveUIAfterLoad();
+        //gameManagerStatic.ActiveUIAfterLoad();
     }
     
     private static void DeactivePrevUIAfterLoad()

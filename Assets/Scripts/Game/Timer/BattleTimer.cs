@@ -17,6 +17,8 @@ public class BattleTimer : AbstractTimer
         get => currentTime;
         set
         {
+            if(currentTime == value) return;
+            
             currentTime = Mathf.Clamp(value, 0, value);
             TimeChanged?.Invoke(currentTime);
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1caf20a3363e347bbd9b45c1ce5864, type: 3}
+  m_Name: Scene Entry Point Data
+  m_EditorClassIdentifier: 
+  nameManagerPair:
+  - SceneName: LobbyScene
+    SceneManager: {fileID: 7488951556943222885, guid: 13ea5bf75e4d32745bc1ec27e047c803, type: 3}
+  - SceneName: BattleScene
+    SceneManager: {fileID: 8928987255005687964, guid: fbf67abe81ebe5a4b86ad2aea1ddde20, type: 3}

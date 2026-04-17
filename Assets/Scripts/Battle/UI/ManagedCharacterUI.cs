@@ -32,10 +32,11 @@ public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
         }
     }
 
-    public override IEnumerator Initialize()
+    public IEnumerator Initialize(CharacterData characterData)
     {
         gameObject.SetActive(true);
 
+        this.characterData = characterData;
         yield return StartCoroutine(selectedCharactersUI.Initialize(characterData, this));
 
         float height = 0;

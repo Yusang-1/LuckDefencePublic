@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public abstract class UIPresenter : MonoBehaviour
+public abstract class UIPresenter<T> : MonoBehaviour
 {
-    public abstract void OnUpdateUI<T>(T item) where T : IConvertible;
+    public abstract void OnUpdateUI(T item);
 }

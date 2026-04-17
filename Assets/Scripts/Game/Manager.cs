@@ -1,6 +1,22 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
-public class Manager : MonoBehaviour
+public abstract class Manager : MonoBehaviour
 {
-    public bool isStartCompleted;
+    // [NonSerialized] public bool isInitialized;
+    
+    // public virtual IEnumerator Initialize()
+    // {
+    //     if(isInitialized) yield break;
+    // }
+    
+    
+}
+
+public interface IManagerSceneEntry
+{
+    public IEnumerator Initialize();
+    
+    public void DestroyPrevUIAfterLoad();
 }

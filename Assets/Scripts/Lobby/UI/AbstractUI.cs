@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class AbstractUI : MonoBehaviour
 {
-    public abstract IEnumerator Initialize();
+    //public abstract IEnumerator Initialize();
 
     public abstract void PortraitSelected(int code);
 
