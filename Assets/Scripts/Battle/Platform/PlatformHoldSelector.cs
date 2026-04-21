@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlatformHoldSelector : MonoBehaviour
 {
     [SerializeField] private Platforms platforms;
+    [SerializeField] private GameObject selectEffect;
+    [SerializeField] private GameObject holdEffect;
+    [SerializeField] private GameObject releseEffect;
 
     private int holdedIndex;
     private int releasedIndex;
@@ -17,17 +21,43 @@ public class PlatformHoldSelector : MonoBehaviour
         holdedIndex = -1;
         releasedIndex = -1;
     }
-
-    public void Holded(int platformIndex)
+    
+    public void Selected(int platformIndex, Platform platform)
     {
-        holdedIndex = platformIndex;
+        selectEffect.transform.position = platform.transform.position;
+        selectEffect.SetActive(true);
+    }
+    
+    public void SelectEnd()
+    {
+        selectEffect.SetActive(false);
     }
 
-    public void Released(int platformIndex)
+    public void Holded(int platformIndex, Platform platform)
+    {
+        holdedIndex = platformIndex;
+        platforms.SelectedPlatformIndex = -1;
+        platforms.SelectedPlatformIndex = -1;
+        
+        holdEffect.transform.position = platform.transform.position;
+        holdEffect.SetActive(true);
+    }
+
+    public void Released(int platformIndex, Platform platform)
     {
         releasedIndex = platformIndex;
-
+        
+        holdEffect.SetActive(false);
+        releseEffect.transform.position = platform.transform.position;
+        releseEffect.SetActive(true);
+        StartCoroutine(WaitEffect(0.5f));
         DoJob();
+    }
+    
+    private IEnumerator WaitEffect(float time)
+    {
+        yield return new WaitForSeconds(time);
+        releseEffect.SetActive(false);
     }
 
     private void DoJob()

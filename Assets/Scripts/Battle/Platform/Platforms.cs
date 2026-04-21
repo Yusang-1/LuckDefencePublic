@@ -7,7 +7,8 @@ public class Platforms : MonoBehaviour
     public event Action<Platform> PlatformSelected;
     public event Action NoPlatformSelected;
 
-    [SerializeField] private Platform[] platformList;    
+    [SerializeField] private Platform[] platformList;
+    [SerializeField] private PlatformHoldSelector holdSelector;
     
     private int selectedPlatformIndex;
 
@@ -38,6 +39,8 @@ public class Platforms : MonoBehaviour
             }
         }
     }
+    
+    public PlatformHoldSelector HoldSelector => holdSelector;
 
     private void Start()
     {

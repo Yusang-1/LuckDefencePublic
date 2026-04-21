@@ -4,7 +4,6 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 {
     [SerializeField] private Platforms platforms;
     [SerializeField] private PlatformPositionSO platformPosData;
-    [SerializeField] private PlatformHoldSelector holdSelector;
     [SerializeField] private Promotion promotion;
     [SerializeField] private PlatformTargetSearcher targetSearcher;
 
@@ -165,21 +164,25 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
         promotion.GetPlatformData(new PlatformData(index, rank), value);
 
         platforms.SelectedPlatformIndex = index;
+        
+        platforms.HoldSelector.Selected(index, this);
     }
 
     public void SelectedEnd()
     {
         platforms.SelectedPlatformIndex = -1;
+        
+        platforms.HoldSelector.SelectEnd();
     }
 
     public void Holded()
     {
-        holdSelector.Holded(index);
+        platforms.HoldSelector.Holded(index, this);
     }
 
     public void HoldReleased()
     {
-        holdSelector.Released(index);
+        platforms.HoldSelector.Released(index, this);
     }
 
     public void SetTarget(Entity entity)
