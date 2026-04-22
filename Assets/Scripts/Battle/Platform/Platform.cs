@@ -178,11 +178,13 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
     public void Holded()
     {
         platforms.HoldSelector.Holded(index, this);
+        platforms.ArrowDrawer.StartDraw(this);
     }
 
     public void HoldReleased()
     {
         platforms.HoldSelector.Released(index, this);
+        platforms.ArrowDrawer.EndDraw();
     }
 
     public void SetTarget(Entity entity)

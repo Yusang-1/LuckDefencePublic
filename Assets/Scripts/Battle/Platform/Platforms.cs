@@ -9,10 +9,11 @@ public class Platforms : MonoBehaviour
 
     [SerializeField] private Platform[] platformList;
     [SerializeField] private PlatformHoldSelector holdSelector;
+    [SerializeField] private PlatformHoldArrowDrawer arrowDrawer;
     
     private int selectedPlatformIndex;
 
-    public Platform[] PlatformList => platformList;    
+    public Platform[] PlatformList => platformList;
 
     public int SelectedPlatformIndex
     {
@@ -41,6 +42,7 @@ public class Platforms : MonoBehaviour
     }
     
     public PlatformHoldSelector HoldSelector => holdSelector;
+    public PlatformHoldArrowDrawer ArrowDrawer => arrowDrawer;
 
     private void Start()
     {

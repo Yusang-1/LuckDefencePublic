@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -100,6 +101,21 @@ public class InputManager : MonoBehaviour
                 holdable.HoldReleased();
             }
             isHold = false;
+        }
+    }
+    
+    public event Action<Vector2> OnMousePositionChanged;
+    public void OnGetMousePosition(InputAction.CallbackContext context)
+    {
+        if (isPointerOverGameObject) return;
+        if (OnMousePositionChanged == null) return;
+        
+        if (context.performed)
+        {
+            Vector2 position = context.ReadValue<Vector2>();
+            position = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 10));
+            //Debug.Log($"Mouse Position: {position}");
+            OnMousePositionChanged?.Invoke(position);
         }
     }
 }
