@@ -106,7 +106,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 
     public bool CheckEntityAvailable(int code)
     {        
-        return (entityCount == 0 || (currentEntityCode == code && entityCount != maxAvailableEntityCount));
+        return entityCount == 0 || (currentEntityCode == code && entityCount != maxAvailableEntityCount);
     }
 
     public bool CheckIsPromotionable()
