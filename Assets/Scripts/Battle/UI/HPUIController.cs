@@ -9,8 +9,7 @@ public class HPUIController : MonoBehaviour
 
     private Entity entity;
 
-    private bool isMatched;
-    public bool IsMatched => isMatched;
+    public bool IsMatched => hpUI.IsMatched || mpUI.IsMatched;
 
     private void Start()
     {
@@ -28,26 +27,33 @@ public class HPUIController : MonoBehaviour
 
         if (entity is IDamagable)
         {
-            entity.BattleData.HPChanged += ActiveUI;
+            entity.BattleData.HPChanged += SetHP;
             hpUI.matchEntity(entity);
-            hpUI.gameObject.SetActive(true);
+            hpUI.gameObject.SetActive(true);            
         }
         if (entity is ISkillusable)
         {
+            (entity.BattleData as ISkillUsableData).MPChanged += SetMP;
             mpUI.matchEntity(entity);
             mpUI.gameObject.SetActive(true);
-        }
-
-        isMatched = true;
+        }        
     }
 
     public void ResetUI()
     {
-        hpUI.ResetUI();
-        mpUI.ResetUI();
+        if(hpUI.IsMatched)
+        {
+            entity.BattleData.HPChanged -= SetHP;
+            hpUI.ResetUI();
+        }
+        if(mpUI.IsMatched)
+        {
+            (entity.BattleData as ISkillUsableData).MPChanged -= SetMP;
+            mpUI.ResetUI();
+        }
     }
     
-    private void ActiveUI(int hp)
+    private void SetHP(int hp)
     {
         if(gameObject.activeSelf == false)
         {
@@ -55,5 +61,15 @@ public class HPUIController : MonoBehaviour
         }
         
         hpUI.OnSetUI(hp);
+    }
+    
+    private void SetMP(int mp)
+    {
+        if(gameObject.activeSelf == false)
+        {
+            gameObject.SetActive(true);
+        }
+        
+        mpUI.OnSetUI(mp);
     }
 }

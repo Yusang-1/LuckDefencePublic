@@ -58,13 +58,13 @@ public class BattleTimer : AbstractTimer
         
     }
 
-    public void Initialize()
-    {
-        CurrentTime = 0;
-    }
-
     public void OnStartTimerAddTime(RoundData data)
     {
+        if(isTimerSet == false)
+        {
+            TimerManager.AddTimer(this);
+        }
+        
         isTimerSet = true;
 
         CurrentTime += data.AdditionalTime;

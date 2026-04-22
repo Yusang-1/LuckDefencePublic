@@ -8,12 +8,15 @@ public class MPUI : MonoBehaviour
 
     private Entity entity;
     
+    bool isMatched;
+    public bool IsMatched => isMatched;
+    
     public void matchEntity(Entity entity)
     {
         this.entity = entity;
         OnSetUI(0);
-        gameObject.SetActive(true);
-        (entity.BattleData as ISkillUsableData).MPChanged += OnSetUI;
+        gameObject.SetActive(true);        
+        isMatched = true;
     }
 
     public void OnSetUI(int mp)
@@ -33,9 +36,9 @@ public class MPUI : MonoBehaviour
     {
         if(entity == null) return;
         
-        (entity.BattleData as ISkillUsableData).MPChanged -= OnSetUI;
         entity = null;
         gameObject.SetActive(false);
         mpTransform.localScale = new Vector3(1, 1, 1);
+        isMatched = false;
     }
 }

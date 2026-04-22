@@ -9,13 +9,17 @@ public class HPUI : MonoBehaviour
     [SerializeField] RectTransform hpTransform;
     [SerializeField] TextMeshProUGUI hpText;
 
-    private Entity entity;    
+    private Entity entity;
+    
+    private bool isMatched;
+    public bool IsMatched => isMatched;
     
     public void matchEntity(Entity entity)
     {
         this.entity = entity;
         OnSetUI(entity.Data.MaxHp);
         gameObject.SetActive(true);
+        isMatched = true;
     }
 
     public void OnSetUI(int hp)
@@ -35,9 +39,9 @@ public class HPUI : MonoBehaviour
 
     public void ResetUI()
     {
-        entity.BattleData.HPChanged -= OnSetUI;
         entity = null;
         gameObject.SetActive(false);
         hpTransform.localScale = new Vector3(1, 1, 1);
+        isMatched = false;
     }
 }

@@ -94,7 +94,6 @@ public class BattleManager : Manager, IManagerSceneEntry
     {
         battleTimer.OnResetTimer();
         enemySpawner.OnStopActiveCoroutine();
-        enemySpawner.ResetSpawner();
         hpSpawner.OnDeactiveAllHP();
         foreach (var platform in platforms.PlatformList)
         {

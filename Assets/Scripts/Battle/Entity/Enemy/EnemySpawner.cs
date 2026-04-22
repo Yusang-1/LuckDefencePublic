@@ -35,14 +35,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void ResetSpawner()
-    {
-        if(activeEnemyCoroutine != null)
-        {
-            StopCoroutine(activeEnemyCoroutine);
-        }
-    }
-
     public void SpawnEnemy(RoundData roundData)
     {       
         activeEnemyCoroutine = ActiveEnemyCoroutine(entitiesByRoundData[roundData], roundData.SpawnDelay);
