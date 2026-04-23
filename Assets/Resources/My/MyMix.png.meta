@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19a596d1a38d6734f9dc70a4e8b6ffb0
+guid: c12f8583630a8c54bbb6502e33d4c05e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -134,12 +134,144 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ArrowBody
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31c6e6b747d19254199bc214bc91b8f6
+      internalID: 38205813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowHead
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feb4cc86f2a99b74a9434653b12dc396
+      internalID: -981009963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangeShower
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 728
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 448153687d888c241b1ec678c28e9c0e
+      internalID: 1763282642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlatformHolded
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 472
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 772b9f725177d8341b90874f1c6ad3ff
+      internalID: 304928778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlatformReleased
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 472
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f5109a332a7feb4e8f09cfdd3158a72
+      internalID: 88369708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlatformSelected
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 472
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec11fa8a07021641a7a5b012888854c
+      internalID: -2023005865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: dbc44aa122996e34bb44dd097ddee0e4
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +280,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ArrowBody: 38205813
+      ArrowHead: -981009963
+      PlatformHolded: 304928778
+      PlatformReleased: 88369708
+      PlatformSelected: -2023005865
+      RangeShower: 1763282642
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

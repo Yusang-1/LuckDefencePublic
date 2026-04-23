@@ -52,16 +52,19 @@ public class PlatformHoldArrowDrawer : MonoBehaviour
     {
         Vector2 direction = mousePosition - standardPosition;
         Vector2 position = new Vector2(mousePosition.x - direction.normalized.x * arrowHeadOffset, mousePosition.y - direction.normalized.y * arrowHeadOffset);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        //float distance = direction.magnitude;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        float distance = direction.magnitude;
         arrowHead.transform.position = position;
         arrowHead.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        DrawArrowBody();
+        DrawArrowBody(direction, angle, distance - arrowHead.transform.localScale.y/2);
     }
 
-    private void DrawArrowBody()
+    private void DrawArrowBody(Vector2 direction, float angle, float distance)
     {
-
+        arrowBody.size = new Vector2(defaultBodyWidth, distance * defaultBodyWidth * 2);
+                
+        arrowBody.transform.position = direction.normalized * (distance / 2) + standardPosition;
+        arrowBody.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
