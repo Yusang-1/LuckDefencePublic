@@ -93,16 +93,16 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
             }
         }
 
-        platforms.DataChanged(index);
+        platforms.DataChanged(index, true);
     }
-
+    
     public void Migration()
     {
         entityCount = 0;
         currentEntityCode = 0;
         rank = CharRank.none;
 
-        platforms.DataChanged(index);
+        platforms.DataChanged(index, true);
     }
 
     public bool CheckEntityAvailable(int code)

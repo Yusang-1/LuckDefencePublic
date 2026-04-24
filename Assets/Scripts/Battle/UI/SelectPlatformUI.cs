@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 
 public class SelectPlatformUI : MonoBehaviour, IUIAnimation
@@ -9,6 +8,7 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Image sprite;
     [SerializeField] private TextMeshProUGUI entityName;
+    [SerializeField] private TextMeshProUGUI entityPrice;
     [SerializeField] private Button promotionButton;
 
     [SerializeField] private float UIMoveSpeed;
@@ -18,22 +18,25 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
     [SerializeField] private int openDirection;
 
     [SerializeField] private float uiOpenTime;
+    [SerializeField] private BattleDataSO battleData;
+    private CachedTextNumber cachedTextNumber;
     private IEnumerator deactiveUICoroutine;
-
+    private Platform currentPlatform;
     private bool isOpen;
-
     public bool IsOpen => isOpen;
     
     public IEnumerator Initialize()
     {
         yield return StartCoroutine(uiAnimation.Initizlize());
 
+        cachedTextNumber = new CachedTextNumber();
         promotionButton.interactable = false;
     }
 
     public void OpenUI(Platform platform)
     {
-        SetData(platform);        
+        currentPlatform = platform;
+        SetData(currentPlatform);        
 
         if (isOpen) return;
 
@@ -54,7 +57,8 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
 
     public void SetData(Platform platform)
     {
-        entityName.text = platform.Entities[0].Data.Code.ToString();
+        entityName.SetCharArray(cachedTextNumber.GetCachedText(platform.Entities[0].Data.Code, out int length), 0, length);
+        entityPrice.SetCharArray(cachedTextNumber.GetCachedText((platform.Entities[0].Data as CharacterSO).Price, out length), 0, length);
         promotionButton.interactable = platform.CheckIsPromotionable();
     }
 
@@ -83,5 +87,14 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
         }
 
         gameObject.SetActive(false);
+    }
+    
+    public void SellEntity()
+    {
+        int priceEarned = currentPlatform.EntityCount * (currentPlatform.Entities[0].Data as CharacterSO).Price;
+        battleData.CurrentCoin += priceEarned;
+        
+        currentPlatform.ResetPlatform();
+        OnCloseUI();
     }
 }

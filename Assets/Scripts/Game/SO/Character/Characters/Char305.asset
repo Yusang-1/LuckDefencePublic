@@ -26,7 +26,7 @@ MonoBehaviour:
   Rank: 2
   poolNum: 5
   Weight: 1
-  price: 80
+  Price: 12
   AttackData:
     skillName: basic attack
     skillDescription: basic attack

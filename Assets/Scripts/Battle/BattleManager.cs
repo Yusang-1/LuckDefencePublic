@@ -78,6 +78,7 @@ public class BattleManager : Manager, IManagerSceneEntry
     public void StartBattle()
     {
         stageManager.StartNextRound();
+        battleData.OnResetData();
     }
     
     private void ClearBattle()

@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     }
 
     public Dictionary<SelectableController, Action<ISelectableObject>> selectStartCallbacks = new Dictionary<SelectableController, Action<ISelectableObject>>();
+    private SelectableController currentSelectedController;
     public Dictionary<SelectableController, Action<ISelectableObject>> selectCanceledCallbacks = new Dictionary<SelectableController, Action<ISelectableObject>>();
     public void OnSelect(InputAction.CallbackContext context)
     {
@@ -35,17 +36,15 @@ public class InputManager : MonoBehaviour
 
             if (hit2D && hit2D.collider.gameObject.TryGetComponent<ISelectableObject>(out ISelectableObject selectable))
             {
-                if (selectStartCallbacks.TryGetValue(selectable.SelectableController, out Action<ISelectableObject> callback))
+                currentSelectedController = selectable.SelectableController;
+                if (selectStartCallbacks.TryGetValue(currentSelectedController, out Action<ISelectableObject> callback))
                 {
                     callback?.Invoke(selectable);
                 }
             }
-            else
+            else if(currentSelectedController != null)
             {
-                foreach (var callback in selectStartCallbacks.Values)
-                {
-                    callback?.Invoke(null);
-                }
+                selectStartCallbacks[currentSelectedController]?.Invoke(null);                
             }
         }
 
@@ -67,12 +66,9 @@ public class InputManager : MonoBehaviour
                     callback?.Invoke(selectable);
                 }
             }
-            else
+            else if (currentSelectedController != null)
             {
-                foreach (var callback in selectCanceledCallbacks.Values)
-                {
-                    callback?.Invoke(null);
-                }
+                selectCanceledCallbacks[currentSelectedController]?.Invoke(null);
             }
         }
     }

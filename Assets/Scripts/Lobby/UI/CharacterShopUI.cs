@@ -30,7 +30,7 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
             selectedCharCode = value;
             selectedEntity = characterData.CharacterListData.CharListAsRankDictionary[characterData.GetCharRankByCode(selectedCharCode)].EntityAsCodeDict[selectedCharCode];
             selectedCharacterInfoUI.SetInfoUI(selectedEntity);
-            charPrice.text = (selectedEntity.Data as CharacterSO).price.ToString();
+            charPrice.text = (selectedEntity.Data as CharacterSO).Price.ToString();
         }
     }
     
@@ -77,12 +77,12 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
             return;
         }
 
-        if(playerResourcesData.PlayerCoin < (selectedEntity.Data as CharacterSO).price)
+        if(playerResourcesData.PlayerCoin < (selectedEntity.Data as CharacterSO).Price)
         {
             Debug.LogWarning("캐릭터를 구매할 금액이 부족함");
             return;
         }
-        playerResourcesData.AddPlayerCoin(-(selectedEntity.Data as CharacterSO).price);
+        playerResourcesData.AddPlayerCoin(-(selectedEntity.Data as CharacterSO).Price);
 
         characterData.AddOwnedCharacter(selectedEntity);
 

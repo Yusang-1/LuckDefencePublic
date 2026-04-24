@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using NUnit.Framework;
 
 public class Platforms : MonoBehaviour
 {
@@ -55,10 +56,16 @@ public class Platforms : MonoBehaviour
         }
     }
 
-    public void DataChanged(int index)
+    public void DataChanged(int index, bool isReset = false)
     {
         if (index != selectedPlatformIndex) return;
-
+        
+        if(isReset)
+        {
+            platformList[SelectedPlatformIndex].SelectedEnd();            
+            return;
+        }
+        
         PlatformDataChanged?.Invoke(platformList[index]);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
 using TMPro;
 
 public class BattleTimerUI : UIPresenter<float>
@@ -9,7 +8,7 @@ public class BattleTimerUI : UIPresenter<float>
     [SerializeField] private TextMeshProUGUI timerText;
 
     private BattleTimer timer;
-    private TimerCachedText timerCachedText;
+    private CachedTextNumber timerCachedText;
 
     private void OnDestroy()
     {
@@ -21,7 +20,7 @@ public class BattleTimerUI : UIPresenter<float>
     {
         this.timer = timer;
         timer.TimeChanged += OnUpdateUI;
-        timerCachedText = new TimerCachedText();
+        timerCachedText = new CachedTextNumber();
     }
 
     public override void OnUpdateUI(float item)
