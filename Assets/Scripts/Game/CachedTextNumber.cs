@@ -11,6 +11,17 @@ public class CachedTextNumber
     {
         resultLength = 0;
         int index;
+        
+        if(number < 0)
+        {
+            resultChars[resultLength++] = '-';
+            number = -number;
+        }
+        
+        if(number >= 0 && number < 1)
+        {
+            resultChars[resultLength++] = cachedTexts[0];
+        }
 
         float max = 1;
         while (max < number)

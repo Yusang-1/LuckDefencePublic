@@ -54,8 +54,7 @@ public class BattleTimer : AbstractTimer
     public BattleTimer()
     {
         TimerManager.AddTimer(this);
-        
-        
+        isTimerSet = true;
     }
 
     public void OnStartTimerAddTime(RoundData data)

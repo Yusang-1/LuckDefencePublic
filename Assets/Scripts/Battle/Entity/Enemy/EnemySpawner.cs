@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void SpawnEnemy(RoundData roundData)
-    {       
+    {
         activeEnemyCoroutine = ActiveEnemyCoroutine(entitiesByRoundData[roundData], roundData.SpawnDelay);
         StartCoroutine(activeEnemyCoroutine);
     }

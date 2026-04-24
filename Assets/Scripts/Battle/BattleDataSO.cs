@@ -53,6 +53,10 @@ public class BattleDataSO : ScriptableObject
         set
         {
             roundNum = value;
+            if(roundNum == 0)
+            {
+                CurrentCoin = stageData.InitialCoin;
+            }
 
             if(roundNum >= 0)
             {
