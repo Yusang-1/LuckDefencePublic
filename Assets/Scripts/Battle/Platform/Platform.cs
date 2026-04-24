@@ -52,6 +52,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
         }
     }
     public Vector3 TargetLastPosition => targetLastPosition;
+    public SelectableController SelectableController => platforms.InputPlatform;
 
     public void Start()
     {
@@ -173,16 +174,21 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
         platforms.SelectedPlatformIndex = -1;
         
         platforms.HoldSelector.SelectEnd();
-    }
+    }    
 
-    public void Holded()
+    public bool Holded()
     {
+        if (entities[0] == null) return false;
+        
         platforms.HoldSelector.Holded(index, this);
         platforms.ArrowDrawer.StartDraw(this);
+        return true;
     }
 
-    public void HoldReleased()
+    public void HoldReleased(bool isHoldSuccess = true)
     {
+        if(isHoldSuccess == false) return;
+        
         platforms.HoldSelector.Released(index, this);
         platforms.ArrowDrawer.EndDraw();
     }

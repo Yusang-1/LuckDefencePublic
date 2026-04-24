@@ -1,6 +1,6 @@
 ﻿public interface IHoldableObject
 {
-    public void Holded();
+    public bool Holded();
 
-    public void HoldReleased();
+    public void HoldReleased(bool isHoldSuccess = true);
 }

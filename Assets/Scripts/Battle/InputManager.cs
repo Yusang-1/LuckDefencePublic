@@ -1,15 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System;
+using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour
 {
-    private ISelectableObject m_ISelectable;
     private Vector3 mousePosition;
-    private bool isHold;
     private bool isPointerOverGameObject;
-    
+
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -22,6 +21,8 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public Dictionary<SelectableController, Action<ISelectableObject>> selectStartCallbacks = new Dictionary<SelectableController, Action<ISelectableObject>>();
+    public Dictionary<SelectableController, Action<ISelectableObject>> selectCanceledCallbacks = new Dictionary<SelectableController, Action<ISelectableObject>>();
     public void OnSelect(InputAction.CallbackContext context)
     {
         if (isPointerOverGameObject) return;
@@ -29,92 +30,63 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             mousePosition = context.ReadValue<Vector2>();
-
             Vector3 vec = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10));
             RaycastHit2D hit2D = Physics2D.Raycast(vec, Vector3.forward, float.MaxValue);
 
             if (hit2D && hit2D.collider.gameObject.TryGetComponent<ISelectableObject>(out ISelectableObject selectable))
             {
-                if(m_ISelectable != selectable)
+                if (selectStartCallbacks.TryGetValue(selectable.SelectableController, out Action<ISelectableObject> callback))
                 {
-                    m_ISelectable?.SelectedEnd();
+                    callback?.Invoke(selectable);
                 }
-
-                m_ISelectable = selectable;
             }
             else
             {
-                // 첫 selectedEnd : 다른 selectableObject 선택 대기, 두번째 selectedEnd : selectableObject 선택 안되었음을 알림
-                m_ISelectable?.SelectedEnd();
-                m_ISelectable?.SelectedEnd();
-                m_ISelectable = null;
+                foreach (var callback in selectStartCallbacks.Values)
+                {
+                    callback?.Invoke(null);
+                }
             }
         }
 
-        if(context.performed)
+        // canceled에서는 mousePosition을 받아올수 없으므로 performed에서 최근 position을 받음
+        if (context.performed)
         {
             mousePosition = context.ReadValue<Vector2>();
         }
 
-        if (isHold) return;
-
         if (context.canceled)
         {
-            ISelectableObject selectable;
             Vector3 vec = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10));
             RaycastHit2D hit2D = Physics2D.Raycast(vec, Vector3.forward, float.MaxValue);
 
-            if (hit2D && hit2D.collider.gameObject.TryGetComponent<ISelectableObject>(out selectable))
+            if (hit2D && hit2D.collider.gameObject.TryGetComponent<ISelectableObject>(out ISelectableObject selectable))
             {
-                selectable.Selected();
-            }
-        }
-    }
-
-    public void OnHold(InputAction.CallbackContext context)
-    {
-        if (isPointerOverGameObject) return;
-
-        if (context.performed)
-        {
-            isHold = true;
-
-            Vector3 vec = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10));
-            RaycastHit2D hit2D = Physics2D.Raycast(vec, Vector3.forward, float.MaxValue);
-
-            if (hit2D && hit2D.collider.gameObject.TryGetComponent<IHoldableObject>(out IHoldableObject holdable))
-            {
-                if (holdable == m_ISelectable)
+                if (selectCanceledCallbacks.TryGetValue(selectable.SelectableController, out Action<ISelectableObject> callback))
                 {
-                    holdable.Holded();
+                    callback?.Invoke(selectable);
+                }
+            }
+            else
+            {
+                foreach (var callback in selectCanceledCallbacks.Values)
+                {
+                    callback?.Invoke(null);
                 }
             }
         }
-
-        if (context.canceled && isHold)
-        {
-            Vector3 vec = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10));
-            RaycastHit2D hit2D = Physics2D.Raycast(vec, Vector3.forward, float.MaxValue);
-
-            if (hit2D && hit2D.collider.gameObject.TryGetComponent<IHoldableObject>(out IHoldableObject holdable))
-            {
-                holdable.HoldReleased();
-            }
-            isHold = false;
-        }
     }
-    
+
     public event Action<Vector2> OnMousePositionChanged;
     public void OnGetMousePosition(InputAction.CallbackContext context)
     {
         if (isPointerOverGameObject) return;
         if (OnMousePositionChanged == null) return;
-        
+
         if (context.performed)
         {
             Vector2 position = context.ReadValue<Vector2>();
             position = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 10));
-            //Debug.Log($"Mouse Position: {position}");
             OnMousePositionChanged?.Invoke(position);
         }
     }

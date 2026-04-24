@@ -10,37 +10,38 @@ public class Platforms : MonoBehaviour
     [SerializeField] private Platform[] platformList;
     [SerializeField] private PlatformHoldSelector holdSelector;
     [SerializeField] private PlatformHoldArrowDrawer arrowDrawer;
-    
+
     private int selectedPlatformIndex;
 
     public Platform[] PlatformList => platformList;
+    public InputPlatform InputPlatform;
 
     public int SelectedPlatformIndex
     {
         get => selectedPlatformIndex;
         set
         {
-            if(selectedPlatformIndex >= 0 && value < 0)
-            {                
-                selectedPlatformIndex = value;
-                return;
-            }
-
-            if(selectedPlatformIndex < 0 && value < 0)
+            if (selectedPlatformIndex >= 0 && value < 0)
             {
+                selectedPlatformIndex = value;
                 NoPlatformSelected?.Invoke();
                 return;
             }
 
+            if (selectedPlatformIndex < 0 && value < 0)
+            {                
+                return;
+            }
+
             selectedPlatformIndex = value;
-            
-            if(value >= 0 && platformList[value].EntityCount > 0)
+
+            if (value >= 0 && platformList[value].EntityCount > 0)
             {
                 PlatformSelected?.Invoke(platformList[value]);
             }
         }
     }
-    
+
     public PlatformHoldSelector HoldSelector => holdSelector;
     public PlatformHoldArrowDrawer ArrowDrawer => arrowDrawer;
 
