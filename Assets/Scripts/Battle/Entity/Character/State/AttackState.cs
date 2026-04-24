@@ -2,6 +2,7 @@
 
 public class AttackState : ICharacterState
 {
+    private static readonly int HasTargetHash = Animator.StringToHash("hasTarget");
     private Character character;
 
     private float cooldown;
@@ -15,11 +16,17 @@ public class AttackState : ICharacterState
     {
         //Debug.Log("Attack State");
         character.AttackTarget = (character.platform.Target as Enemy).GetComponent<IDamagable>();
+        
+        if(character.IsAnimatorNotSet == false)
+            character.Animator.SetBool(HasTargetHash, true);
     }
 
     public void StateExit()
     {
-        
+        if(character.IsAnimatorNotSet == false)
+        {
+            character.Animator.SetBool(HasTargetHash, false);
+        }
     }
 
     public void StateUpdate()

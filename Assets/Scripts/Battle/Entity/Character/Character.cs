@@ -10,6 +10,8 @@ public class Character : Entity, IAttackable, ISkillusable
     public IDamagable AttackTarget;
     public Platform platform;
     public CharacterStateMachine stateMachine;
+    public Animator Animator;
+    public bool IsAnimatorNotSet;
     
     private HPSpawner hPSpawner;
     private HPUIController hPUIController;
@@ -40,7 +42,12 @@ public class Character : Entity, IAttackable, ISkillusable
     }
     
     public override void EntityActivated()
-    {            
+    {
+        if(Animator == null)
+        {
+            Animator = GetComponent<Animator>();
+        }
+        
         if(battleData == null)
         {
             battleData = new BattleCharacterData(Data, this);
