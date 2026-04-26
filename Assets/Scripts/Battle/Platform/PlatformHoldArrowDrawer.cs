@@ -57,12 +57,12 @@ public class PlatformHoldArrowDrawer : MonoBehaviour
         arrowHead.transform.position = position;
         arrowHead.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        DrawArrowBody(direction, angle, distance - arrowHead.transform.localScale.y/2);
+        DrawArrowBody(direction, angle, distance - arrowHeadOffset - arrowHead.transform.lossyScale.y/2);
     }
 
     private void DrawArrowBody(Vector2 direction, float angle, float distance)
     {
-        arrowBody.size = new Vector2(defaultBodyWidth, distance * defaultBodyWidth * 2);
+        arrowBody.size = new Vector2(defaultBodyWidth, distance / arrowBody.transform.lossyScale.y);
                 
         arrowBody.transform.position = direction.normalized * (distance / 2) + standardPosition;
         arrowBody.transform.rotation = Quaternion.Euler(0, 0, angle);
