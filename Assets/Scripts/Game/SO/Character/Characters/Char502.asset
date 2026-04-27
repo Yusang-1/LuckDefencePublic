@@ -22,7 +22,7 @@ MonoBehaviour:
   AttackRange: 4
   defaultDefencePoint: 1
   MoveSpeed: 2.5
-  Prefab: {fileID: 6007474548908227235, guid: 16daba16db5f8214d97951fa7ffa5c34, type: 3}
+  Prefab: {fileID: 1271141127734650931, guid: e62a6cbfa38129842a781e94c9f0ba07, type: 3}
   Rank: 4
   poolNum: 3
   Weight: 3
@@ -34,7 +34,7 @@ MonoBehaviour:
     poolCount: 5
     hitVFX: {fileID: 0}
     SkillAbilities:
-    - rid: 8638601405152886863
+    - rid: 8638601405152886862
   SkillData:
     skillName: FireBolt
     skillDescription: FireBolt
@@ -42,15 +42,15 @@ MonoBehaviour:
     poolCount: 3
     hitVFX: {fileID: 0}
     SkillAbilities:
-    - rid: 8638601405152886948
+    - rid: 8638601405152886949
   references:
     version: 2
     RefIds:
-    - rid: 8638601405152886863
+    - rid: 8638601405152886862
       type: {class: HitBasicAttack, ns: , asm: Assembly-CSharp}
       data:
         damageValue: 1
-    - rid: 8638601405152886948
+    - rid: 8638601405152886949
       type: {class: HitSingleTarget, ns: , asm: Assembly-CSharp}
       data:
         damageValue: 1

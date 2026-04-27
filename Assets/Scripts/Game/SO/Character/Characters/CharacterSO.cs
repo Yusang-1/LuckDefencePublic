@@ -8,6 +8,8 @@ public class CharacterSO : EntitySO
     public int Weight;
     public int Price;
     
+    public Sprite Portrait;
+    
     public SkillData AttackData;
     public SkillData SkillData;
 }
