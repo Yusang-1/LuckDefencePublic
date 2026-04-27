@@ -12,8 +12,7 @@ public class BattleManager : Manager, IManagerSceneEntry
     [SerializeField] private EnemySpawner enemySpawner; //instantiate in runtime
     private HPSpawner hpSpawner => battleUIManager.HpSpawner;
 
-    [Header("Datas")]
-    [SerializeField] private StageSO stageData;
+    [Header("Datas")]    
     [SerializeField] private BattleDataSO battleData;
     [SerializeField] private CharacterListDataSO charListData;
     [SerializeField] private EnemyList enemyList; //getComponent in runtime in enemySpawner
@@ -27,7 +26,7 @@ public class BattleManager : Manager, IManagerSceneEntry
     
     public IEnumerator Initialize()
     {
-        battleData.Initialize(stageData);
+        battleData.Initialize();
         speedController.Initialize();        
         battleTimer = new BattleTimer();
         
@@ -36,13 +35,13 @@ public class BattleManager : Manager, IManagerSceneEntry
         characterFactoryContainer = Instantiate(characterFactoryContainer);
         battleMap = Instantiate(battleMap);
         battleMap.BeaconContainer.Initialize();
-        hpSpawner.Initialize(stageData);
+        hpSpawner.Initialize(battleData.StageData);
         characterSpawner = Instantiate(characterSpawner);
         enemySpawner = Instantiate(enemySpawner);        
-        enemySpawner.Initialize(stageData.RoundData, hpSpawner, BeaconContainer.s_Beacons[0]);
+        enemySpawner.Initialize(battleData.StageData.RoundData, hpSpawner, BeaconContainer.s_Beacons[0]);
         enemyList = enemySpawner.GetComponent<EnemyList>();
         
-        yield return battleUIManager.Initialize(stageData, battleTimer);
+        yield return battleUIManager.Initialize(battleData.StageData, battleTimer);
 
         battleData.StartNextRound += enemySpawner.SpawnEnemy;
         battleData.StartNextRound += battleTimer.OnStartTimerAddTime;
@@ -83,7 +82,7 @@ public class BattleManager : Manager, IManagerSceneEntry
     
     private void ClearBattle()
     {
-        FindAnyObjectByType<GameManager>().PlayerResources.AddReward(stageData.RewardData);
+        FindAnyObjectByType<GameManager>().PlayerResources.AddReward(battleData.StageData.RewardData);
         battleUIManager.EndStagePanelUI.OnShowStageClearPanel();
         foreach (var platform in platforms.PlatformList)
         {

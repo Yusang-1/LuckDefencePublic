@@ -92,10 +92,14 @@ public class BattleDataSO : ScriptableObject
 
     public bool IsGameOver;
 
-    public void Initialize(StageSO stageData)
+    public void Initialize()
+    {
+        OnResetData();
+    }
+    
+    public void SetStageData(StageSO stageData)
     {
         this.stageData = stageData;
-        OnResetData();
     }
 
     public void OnResetData()

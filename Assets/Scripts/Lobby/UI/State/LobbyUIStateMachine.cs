@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 public class LobbyUIStateMachine
 {
@@ -10,10 +9,12 @@ public class LobbyUIStateMachine
     private ILobbyUIState lobbyState;
     private ILobbyUIState characterShopState;
     private ILobbyUIState manageCharacterState;
+    private ILobbyUIState stageSelectState;
 
     public ILobbyUIState LobbyState => lobbyState;
     public ILobbyUIState CharacterShopState => characterShopState;
     public ILobbyUIState ManageCharacterState => manageCharacterState;
+    public ILobbyUIState StageSelectState => stageSelectState;
 
     public LobbyUIStateMachine(LobbyUIManager lobbyUIManager, GameManager gameManager)
     {
@@ -22,6 +23,7 @@ public class LobbyUIStateMachine
         lobbyState = lobbyUIManager.LowerUI;
         characterShopState = lobbyUIManager.CharacterShopUI;
         manageCharacterState = lobbyUIManager.ManagedCharacterUI;
+        stageSelectState = lobbyUIManager.StageSelectUI;
     }
 
     public void Initialize(ILobbyUIState state)

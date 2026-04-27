@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 
 public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
 {
-    [SerializeField] private CharacterData characterData;
+    private CharacterData characterData;
     [SerializeField] private PlayerResourcesSO playerResourcesData;
 
     [SerializeField] private AllCharListUI[] allCharListUIs;

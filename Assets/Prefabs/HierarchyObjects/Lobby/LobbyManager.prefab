@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyUIManager: {fileID: 9036608044833509031, guid: e93d1d4beb5e125429fdcb4e28db4562, type: 3}
+  battleData: {fileID: 11400000, guid: 26c73e00451e22a42a2d7dc96e9dde98, type: 2}

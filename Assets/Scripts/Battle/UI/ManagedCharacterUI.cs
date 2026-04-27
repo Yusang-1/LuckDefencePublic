@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
 {
-    [SerializeField] private CharacterData characterData;
+    private CharacterData characterData;
 
     [Header("UIs")]
     [SerializeField] private OwnedCharListUI[] ownedCharListUIs;
