@@ -27,6 +27,8 @@ MonoBehaviour:
   poolNum: 3
   Weight: 3
   Price: 100
+  Portrait: {fileID: 21300000, guid: ee6b934f068f644c1a3b9333862df010, type: 3}
+  FullImage: {fileID: 7384290322352760091, guid: 639a4e0b939ac41caa76f0c03204883c, type: 3}
   AttackData:
     skillName: basic attack
     skillDescription: basic attack

@@ -27,6 +27,8 @@ public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
         }
         this.characterShopUI = characterShopUI;
         this.isInSelectedArea = isInSelectedArea;
+        
+        SetPortrait(entity, null);
     }
 
     public void SetPortrait(Entity entity, string colorCode)
@@ -43,9 +45,9 @@ public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
         characterName.text = entity.Data.EntityName;
         characterCode = entity.Data.Code;
 
-        Color setColor;
-        ColorUtility.TryParseHtmlString(colorCode, out setColor);
-        characterPortrait.color = setColor;
+        // Color setColor;
+        // ColorUtility.TryParseHtmlString(colorCode, out setColor);
+        characterPortrait.sprite = (entity.Data as CharacterSO).Portrait;
         isActivated = true;
     }
 

@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 218437648751480248, guid: 6ad7ca6f9b0b9704b8f3b1b85c315219, type: 3}
   - {fileID: 8457842696843991243, guid: 1d5e0185a11d0a846a95a1718e01194d, type: 3}
   - {fileID: 3889415593201759899, guid: 9f01e1c7ea98b514fa1cdfb1e446f0d2, type: 3}
-  fullCount: 8
+  fullCount: 4
   codeList: 2c0100002d0100002e0100002f010000
   defaultEntityList:
   - {fileID: 2698663485325119467, guid: 4b6076d2f9e826a48a1588626b638e5b, type: 3}

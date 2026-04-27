@@ -37,7 +37,7 @@ public class CharListAsRank : ScriptableObject, ISaveData
                 continue;
             }
 
-            int code = entityList[i].Data.Code;            
+            int code = entityList[i].Data.Code;
             codeList[i] = code;
             entityAsCodeDict.Add(codeList[i], entityList[i]);
         }
@@ -45,14 +45,14 @@ public class CharListAsRank : ScriptableObject, ISaveData
 
     public virtual void AddCharacter(Entity entity)
     {
-        if(IsCodeExist(entity.Data.Code) == true)
+        if (IsCodeExist(entity.Data.Code) == true)
         {
             Debug.LogWarning("이미 존재하는 코드를 추가");
             return;
         }
 
         int emptyIndex = 0;
-        for(int i = 0; i < codeList.Length; i++)
+        for (int i = 0; i < codeList.Length; i++)
         {
             //비어있는 자리를 찾으면 코드 저장 후 정렬
             if (codeList[i] == 0)
@@ -69,9 +69,9 @@ public class CharListAsRank : ScriptableObject, ISaveData
         entityAsCodeDict.Add(entity.Data.Code, entity);
 
         // codeList에 맞춰 entityList 정렬 추후 더 효율적인 방법으로 정렬법 변경
-        for(int i = 0; i < codeList.Length; i++)
+        for (int i = 0; i < codeList.Length; i++)
         {
-            if(codeList[i] == 0)
+            if (codeList[i] == 0)
             {
                 continue;
             }
@@ -88,7 +88,7 @@ public class CharListAsRank : ScriptableObject, ISaveData
         {
             Debug.LogWarning("존재하지 않는 코드를 제거");
             return;
-        }        
+        }
 
         int codeIndex = Array.IndexOf<int>(codeList, code);
         for (int i = 0; i < codeList.Length; i++)
@@ -96,7 +96,7 @@ public class CharListAsRank : ScriptableObject, ISaveData
             //채워져있는 마지막 인덱스 (i - 1)을 찾아 지워야할 인덱스 (codeIndex)와 교환 후 삭제, 정렬
             if (codeList[i] == 0)
             {
-                if(i - 1 == codeIndex)
+                if (i - 1 == codeIndex)
                 {
                     codeList[i - 1] = 0;
                     entityList[i - 1] = null;
@@ -117,16 +117,16 @@ public class CharListAsRank : ScriptableObject, ISaveData
 
         entityAsCodeDict.Remove(code);
 
-        for(int i = 0; i < codeList.Length; i++)
+        for (int i = 0; i < codeList.Length; i++)
         {
-            if(codeList[i] == 0)
+            if (codeList[i] == 0)
             {
                 continue;
             }
 
             entityList[i] = entityAsCodeDict[codeList[i]];
         }
-        
+
         isDirty = true;
     }
 
@@ -147,54 +147,58 @@ public class CharListAsRank : ScriptableObject, ISaveData
             rank = (int)rank,
             codeList = codeList.ToArray()
         };
-                        
+
         return saveData;
     }
 
     public virtual void SetLoadData(IDataStructForSave saveData)
-    {        
+    {
         Array.Clear(codeList, 0, codeList.Length);
         Array.Clear(entityList, 0, entityList.Length);
         entityAsCodeDict.Clear();
-        
+
         CharListAsRankSaveData charSaveData = (CharListAsRankSaveData)saveData;
         rank = (CharRank)charSaveData.rank;
         codeList = charSaveData.codeList;
         fullCount = codeList.Length;
-        
+
         //entityList와 entityAsCodeDict는 codeList를 기반으로 초기화        
         CharacterListDataSO characterListData = FindAnyObjectByType<CharacterData>().CharacterListData;
         Entity entity;
-        for(int i = 0; i < codeList.Length; i++)
+        for (int i = 0; i < codeList.Length; i++)
         {
-            if(codeList[i] == 0)
+            if (codeList[i] == 0)
             {
                 continue;
             }
-            entity = characterListData.CharListAsRankDictionary[rank].EntityAsCodeDict[codeList[i]];
-            
-            entityList[i] = entity;
-            entityAsCodeDict.Add(codeList[i], entity);
+
+            if (characterListData.CharListAsRankDictionary[rank].EntityAsCodeDict.ContainsKey(codeList[i]))
+            {
+                entity = characterListData.CharListAsRankDictionary[rank].EntityAsCodeDict[codeList[i]];
+
+                entityList[i] = entity;
+                entityAsCodeDict.Add(codeList[i], entity);
+            }
         }
     }
-    
+
     public void SetDefaultData()
     {
         Array.Clear(codeList, 0, codeList.Length);
         Array.Clear(entityList, 0, entityList.Length);
         entityAsCodeDict.Clear();
 
-        for(int i = 0; i < entityList.Length; i++)
+        for (int i = 0; i < entityList.Length; i++)
         {
-            if(i >= defaultEntityList.Length || defaultEntityList[i] == null)
+            if (i >= defaultEntityList.Length || defaultEntityList[i] == null)
             {
                 continue;
             }
-            
+
             AddCharacter(defaultEntityList[i]);
         }
     }
-    
+
     public struct CharListAsRankSaveData : IDataStructForSave
     {
         public int rank;

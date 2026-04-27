@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SelectedCharactersUI : MonoBehaviour
 {
-    [SerializeField] private GameObject portrait;
+    [SerializeField] private CharacterPortraitContainer portrait;
     [SerializeField] private RectTransform myRect;    
 
     [SerializeField] private float padding;
@@ -26,12 +26,10 @@ public class SelectedCharactersUI : MonoBehaviour
         int column = 0, row = 0;
         Vector2 pos;
 
-        GameObject go;
         RectTransform portraitRect;
         for (int i = 0; i < characterData.AllCount; i++)
         {
-            go = Instantiate(portrait, myRect);
-            portraits[i] = go.GetComponent<CharacterPortraitContainer>();
+            portraits[i] = Instantiate(portrait, myRect);
             portraits[i].Initialize(null, managedCharacterUI, true);
 
             // Portrait의 크기 설정

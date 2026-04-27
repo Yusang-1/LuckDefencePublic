@@ -13,7 +13,6 @@ public class StageIcon : MonoBehaviour
     
     public void OnClick()
     {
-        Debug.Log("Click");
         onStageSelected?.Invoke(stageData);
     }
 }

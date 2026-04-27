@@ -9,6 +9,7 @@ public class CharacterSO : EntitySO
     public int Price;
     
     public Sprite Portrait;
+    public Sprite FullImage;
     
     public SkillData AttackData;
     public SkillData SkillData;

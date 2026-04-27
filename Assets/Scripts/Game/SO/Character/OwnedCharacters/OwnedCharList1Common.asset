@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 1901919804979891416, guid: 9c58dd37fe7c2164a94add47b4c26ab3, type: 3}
   - {fileID: 5748327640202278112, guid: ad29d4180e90caa40bc50de72900ea84, type: 3}
   - {fileID: 3960552232387826113, guid: 2210330a5b180ce46bc3ce4af7c371e5, type: 3}
-  fullCount: 12
+  fullCount: 6
   codeList: 640000006500000066000000670000006800000069000000
   defaultEntityList:
   - {fileID: -8877789029580565054, guid: eeef8b25865a25242908222e55ebcbfc, type: 3}

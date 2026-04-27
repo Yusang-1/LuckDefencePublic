@@ -2,6 +2,7 @@
 
 public class Character : Entity, IAttackable, ISkillusable
 {
+    private SpriteRenderer spriteRenderer;
     private bool isAttackable;
     private bool isManaFull;
     
@@ -57,6 +58,11 @@ public class Character : Entity, IAttackable, ISkillusable
             battleData.UpdateData(Data, this);
         }
         
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        
         CharacterList.Activated(this);
         
         if (stateMachine == null)
@@ -82,6 +88,14 @@ public class Character : Entity, IAttackable, ISkillusable
     public void Attack(IDamagable target)
     {
         battleCharacterData.AttackData.UseSkill(target as Enemy);
+        if((target as Enemy).transform.position.x >= transform.position.x)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void GetMP()
