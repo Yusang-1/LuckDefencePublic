@@ -525,6 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerResources: {fileID: 11400000, guid: b52fd13635b1dd349843757a8b2fbe3f, type: 2}
   characterData: {fileID: 711963929}
+  stagesData: {fileID: 11400000, guid: 8ed34ad06c69c9e43909c4839e82157e, type: 2}
 --- !u!114 &711963931
 MonoBehaviour:
   m_ObjectHideFlags: 0

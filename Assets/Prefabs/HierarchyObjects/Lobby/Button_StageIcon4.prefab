@@ -136,11 +136,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.68235296, g: 0.68235296, b: 0.68235296, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4278503802636161244}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -186,6 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: 6ebcf7beee5afbb4dba24768bac95890, type: 2}
+  iconImage: {fileID: 4278503802636161244}
+  starImage: {fileID: 7705247565002928528}
+  scoreContainer: {fileID: 6198247821084547244}
+  button: {fileID: 1394687974496977461}
 --- !u!222 &-7220132889441646581
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -236,7 +240,7 @@ GameObject:
   - component: {fileID: 2696861846786146676}
   - component: {fileID: 4278503802636161244}
   m_Layer: 5
-  m_Name: Image_Stage1
+  m_Name: Image_Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,7 +320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6183668698046294646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -391,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3052122316234230475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -466,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9071257629166061686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -539,7 +543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3110817398560640757
 RectTransform:
   m_ObjectHideFlags: 0

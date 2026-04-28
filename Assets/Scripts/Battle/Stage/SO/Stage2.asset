@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7251c3c3892bb4b8fb1cca8d12499f, type: 3}
   m_Name: Stage2
   m_EditorClassIdentifier: 
+  StageIndex: 1
+  IsCleared: 0
+  IsUnlocked: 0
   stageNum: 1
   maxEnemyCount: 40
   initialCoin: 50

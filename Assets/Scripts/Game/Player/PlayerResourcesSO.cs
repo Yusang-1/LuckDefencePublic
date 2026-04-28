@@ -40,7 +40,7 @@ public class PlayerResourcesSO : ScriptableObject, ISaveData
 
     public IDataStructForSave GetSaveData()
     {
-        PlayerResourcesSaveData saveData = new PlayerResourcesSaveData
+        IDataStructForSave saveData = new PlayerResourcesSaveData
         {
             playerLevel = playerLevel,
             playerName = playerName,

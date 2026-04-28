@@ -6,8 +6,11 @@ public class GameManager : Manager
     [SerializeField] private TitleUI titleUI;
     [SerializeField] private SaveLoad saveLoad;
     [SerializeField] private PlayerResourcesSO playerResources;
+    [SerializeField] private StagesSO stagesData;
+    
     public UIManager UIManager => uiManager;
     public PlayerResourcesSO PlayerResources => playerResources;
+    public StagesSO StagesData => stagesData;
     public SaveLoad SaveLoad => saveLoad;
 
     private static bool hasInstance = false;
