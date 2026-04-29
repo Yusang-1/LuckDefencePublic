@@ -6,6 +6,7 @@ using TMPro;
 public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image characterPortrait;
+    [SerializeField] private Image protraitBackground;
     [SerializeField] private Image frameImage;
     [SerializeField] private TextMeshProUGUI characterName;
     
@@ -37,7 +38,8 @@ public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
         {
             characterName.text = "";
             characterCode = 0;
-            characterPortrait.color = Color.white;
+            protraitBackground.color = Color.black;
+            characterPortrait.gameObject.SetActive(false);
             isActivated = false;
             return;
         }
@@ -45,9 +47,10 @@ public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
         characterName.text = entity.Data.EntityName;
         characterCode = entity.Data.Code;
 
-        // Color setColor;
-        // ColorUtility.TryParseHtmlString(colorCode, out setColor);
+        ColorUtility.TryParseHtmlString(colorCode, out Color setColor);
+        protraitBackground.color = setColor;
         characterPortrait.sprite = (entity.Data as CharacterSO).Portrait;
+        characterPortrait.gameObject.SetActive(true);
         isActivated = true;
     }
 
@@ -55,7 +58,7 @@ public class CharacterPortraitContainer : MonoBehaviour, IPointerClickHandler
     {
         if(isInSelectedArea == true && isActivated)
         {
-            characterShopUI.RemovePortrait(characterCode);            
+            characterShopUI.RemovePortrait(characterCode);
         }
         else if(isInSelectedArea == true && isActivated == false)
         {

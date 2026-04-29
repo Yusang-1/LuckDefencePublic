@@ -18,19 +18,23 @@ public class AllCharListUI : MonoBehaviour
 
     private int activatedPortraitCount;
 
-    public void Initialize(CharListAsRank charList, AbstractUI characterShopUI)
+    public void Initialize(CharListAsRank charList, AbstractUI characterShopUI, CharacterData characterData)
     {
         activatedPortraitCount = 0;
 
         portraitUIs = new GameObject[charList.EntityList.Length];
 
         GameObject uiObject;
+        Entity entity;
         for (int i = 0; i < charList.EntityList.Length; i++)
         {
+            entity = charList.EntityList[i];
             uiObject = Instantiate(characterPortraitUI.gameObject, lowerUI);
 
-            uiObject.GetComponent<CharacterPortraitContainer>().Initialize(charList.EntityList[i], characterShopUI, false);
-
+            var portrait = uiObject.GetComponent<CharacterPortraitContainer>();
+            portrait.Initialize(entity, characterShopUI, false);
+            portrait.SetPortrait(entity, characterData.ColorCodeByRank[(entity.Data as CharacterSO).Rank]);
+            
             portraitUIs[i] = uiObject;
         }
         rankText.text = charList.Rank.ToString();

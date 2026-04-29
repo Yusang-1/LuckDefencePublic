@@ -42,7 +42,7 @@ public class CharacterShopUI : AbstractUI, ILobbyUIState, IUIAnimation
         float height = 0;
         for (int i = 0; i < allCharListUIs.Length; i++)
         {
-            allCharListUIs[i].Initialize(characterData.CharacterListData.CharListAsRankDictionary[(CharRank)i], this);
+            allCharListUIs[i].Initialize(characterData.CharacterListData.CharListAsRankDictionary[(CharRank)i], this, characterData);
 
             height += allCharListUIs[i].GetUIHeight();
             yield return null;

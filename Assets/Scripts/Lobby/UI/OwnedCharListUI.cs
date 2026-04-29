@@ -27,13 +27,15 @@ public class OwnedCharListUI : MonoBehaviour
         portraitContainers = new CharacterPortraitContainer[characterData.CharacterListData.CharListAsRankDictionary[charList.Rank].EntityList.Length];
 
         GameObject uiObject;
+        Entity entity;
         for (int i = 0; i < characterData.CharacterListData.CharListAsRankDictionary[charList.Rank].EntityList.Length; i++)
         {
+            entity = characterData.CharacterListData.CharListAsRankDictionary[charList.Rank].EntityList[i];
             uiObject = Instantiate(characterPortraitUI.gameObject, lowerUI);
 
             portraitContainers[i] = uiObject.GetComponent<CharacterPortraitContainer>();
-            portraitContainers[i].Initialize(characterData.CharacterListData.CharListAsRankDictionary[charList.Rank].EntityList[i], managedCharacterUI, false);
-
+            portraitContainers[i].Initialize(entity, managedCharacterUI, false);
+            portraitContainers[i].SetPortrait(entity, characterData.ColorCodeByRank[(entity.Data as CharacterSO).Rank]);
             portraitContainers[i].gameObject.SetActive(false);
         }
         rankText.text = charList.Rank.ToString();

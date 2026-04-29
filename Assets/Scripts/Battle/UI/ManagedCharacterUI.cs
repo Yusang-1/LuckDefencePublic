@@ -75,7 +75,7 @@ public class ManagedCharacterUI : AbstractUI, ILobbyUIState, IUIAnimation
     public override void RemovePortrait(int code)
     {
         characterData.RemoveSelectedCharacter(characterData.SelectedCharacterListData.CharListAsRankDictionary[characterData.GetCharRankByCode(code)].EntityAsCodeDict[code]);
-
+        
         UpdateShopUI();
     }
 
