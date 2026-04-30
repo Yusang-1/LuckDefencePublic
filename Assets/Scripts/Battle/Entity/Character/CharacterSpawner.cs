@@ -101,7 +101,8 @@ public class CharacterSpawner : MonoBehaviour
     {
         factoryDict[(CharRank)data.CharRank].ActiveEntity(data);
     }
-
+    
+    [SerializeField] private RankUnlockSO rankUnlockData;
     public CharRank CheckSummonableRank()
     {
         // 플렛폼들을 순회하며 소환 가능한 랭크의 리스트를 만듦
@@ -109,7 +110,7 @@ public class CharacterSpawner : MonoBehaviour
         {
             for (int i = 0; i < (int)CharRank.legendary; i++)
             {
-                if (platform.CheckIsRankSummonable((CharRank)i) && !summonableRanks.Contains((CharRank)i))
+                if (platform.CheckIsRankSummonable((CharRank)i) && !summonableRanks.Contains((CharRank)i) && rankUnlockData.IsRankUnlocked((CharRank)i))
                 {
                     summonableRanks.Add((CharRank)i);
                 }

@@ -2,23 +2,32 @@
 using UnityEngine;
 
 public class OwnedCharListUI : MonoBehaviour
-{
+{    
     [SerializeField] private RectTransform myRect;
     [SerializeField] private RectTransform upperUI;
     [SerializeField] private RectTransform lowerUI;
     [SerializeField] private RectTransform characterPortraitUI;
     [SerializeField] private TextMeshProUGUI rankText;
+    [SerializeField] private GameObject lockedUI;
 
     [SerializeField] private float defaultSpacingBetweenUIs;
     [SerializeField] private float paddingHorizontal;
     [SerializeField] private float paddingVertical;
     [SerializeField] private Vector2 anchorTopLeft;
     
+    [SerializeField] private RankUnlockSO rankUnlockData;
+    
     private CharListAsRank charList;
     private CharacterPortraitContainer[] portraitContainers;
 
     private int activatedPortraitCount;
-
+    
+    private void OnEnable()
+    {
+        if(charList == null) return;
+        lockedUI.SetActive(!rankUnlockData.IsRankUnlocked(charList.Rank));
+    }
+    
     public void Initialize(CharacterData characterData, CharListAsRank charList, AbstractUI managedCharacterUI)
     {
         activatedPortraitCount = 0;

@@ -28,10 +28,12 @@ public class CharacterData : MonoBehaviour
     [Space]
     // 캐릭터 코드의 랭크별 단위 (100부터는 common, 200부터는 rare)
     [SerializeField] int codeUnit;
+    [SerializeField] private RankUnlockSO rankUnlockData;
 
     public CharacterListDataSO CharacterListData => characterListData;
     public CharacterListDataSO OwnedCharacterListData => ownedCharacterListData;
     public CharacterListDataSO SelectedCharacterListData => selectedCharacterListData;
+    public RankUnlockSO RankUnlockData => rankUnlockData;
 
     public int AllCount => allCount;
     public Dictionary<CharRank, int> RankCountByRank => rankCountByRank;

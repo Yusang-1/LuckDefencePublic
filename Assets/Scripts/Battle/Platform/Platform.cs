@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
     [SerializeField] private int currentEntityCode;
     [SerializeField] private int entityCount;
     [SerializeField] private CharRank rank;
+    [SerializeField] private RankUnlockSO rankUnlockData;
 
     private Entity[] entities;
     [SerializeField] private Entity target;
@@ -112,7 +113,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 
     public bool CheckIsPromotionable()
     {
-        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary)
+        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary && rankUnlockData.IsRankUnlocked(rank+1))
         {
             return true;
         }

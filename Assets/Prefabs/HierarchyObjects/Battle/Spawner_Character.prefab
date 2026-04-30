@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d907c0d5e7af5a4799b097a04529af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryContainer: {fileID: 1017824430734838520, guid: 1c3e49677d9879a4e92f5e5b57fc76ed, type: 3}
   probabilityData: {fileID: 11400000, guid: d8cdd720bab9a6f4891fc8b83e4b3f87, type: 2}
-  platforms: {fileID: 6289582864819584602, guid: 35da2a51a1df3874c8d0a00bedd7e206, type: 3}
   battleData: {fileID: 11400000, guid: 26c73e00451e22a42a2d7dc96e9dde98, type: 2}
+  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}

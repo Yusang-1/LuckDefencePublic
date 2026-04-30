@@ -5,6 +5,7 @@ public class SaveLoad : MonoBehaviour
     [SerializeField] private PlayerResourcesSO playerResources;
     [SerializeField] private CharacterData characterData;
     [SerializeField] private StagesSO stagesData;
+    [SerializeField] private RankUnlockSO rankUnlockData;
     
     public void SaveGame()
     {
@@ -29,6 +30,10 @@ public class SaveLoad : MonoBehaviour
         // stagesData 저장
         json = JsonUtility.ToJson(stagesData.GetSaveData());
         PlayerPrefs.SetString("StagesData", json);
+        
+        // rankUnlockData 저장
+        json = JsonUtility.ToJson(rankUnlockData.GetSaveData());
+        PlayerPrefs.SetString("RankUnlockData", json);
     }
     
     public void LoadGame()
@@ -92,7 +97,20 @@ public class SaveLoad : MonoBehaviour
         else
         {
             stagesData.SetDefaultData();
-            Debug.Log($"저장된 stagesData가 없습니다. 기본값으로 설정합니다.");
+            Debug.Log("저장된 stagesData가 없습니다. 기본값으로 설정합니다.");
+        }
+        
+        // RankUnlockData 불러오기
+        if(PlayerPrefs.HasKey("RankUnlockData"))
+        {
+            string json = PlayerPrefs.GetString("RankUnlockData");
+            RankUnlockSO.RankUnlockSaveData saveData = JsonUtility.FromJson<RankUnlockSO.RankUnlockSaveData>(json);
+            rankUnlockData.SetLoadData(saveData);
+        }
+        else
+        {
+            rankUnlockData.SetDefaultData();
+            Debug.Log("저장된 rankUnlockData가 없습니다. 기본값으로 설정합니다.");
         }
     }
 }

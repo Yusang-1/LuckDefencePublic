@@ -8,20 +8,29 @@ public class AllCharListUI : MonoBehaviour
     [SerializeField] private RectTransform lowerUI;
     [SerializeField] private RectTransform characterPortraitUI;
     [SerializeField] private TextMeshProUGUI rankText;
+    [SerializeField] private GameObject lockedUI;
 
     [SerializeField] private float defaultSpacingBetweenUIs;
     [SerializeField] private float paddingHorizontal;
     [SerializeField] private float paddingVertical;
     [SerializeField] private Vector2 anchorTopLeft;
+    
+    [SerializeField] private RankUnlockSO rankUnlockData;
 
     private GameObject[] portraitUIs;
-
+    private CharListAsRank charList;
     private int activatedPortraitCount;
+
+    private void OnEnable()
+    {
+        if(charList == null) return;
+        lockedUI.SetActive(!rankUnlockData.IsRankUnlocked(charList.Rank));
+    }
 
     public void Initialize(CharListAsRank charList, AbstractUI characterShopUI, CharacterData characterData)
     {
         activatedPortraitCount = 0;
-
+        this.charList = charList;
         portraitUIs = new GameObject[charList.EntityList.Length];
 
         GameObject uiObject;
@@ -34,7 +43,7 @@ public class AllCharListUI : MonoBehaviour
             var portrait = uiObject.GetComponent<CharacterPortraitContainer>();
             portrait.Initialize(entity, characterShopUI, false);
             portrait.SetPortrait(entity, characterData.ColorCodeByRank[(entity.Data as CharacterSO).Rank]);
-            
+
             portraitUIs[i] = uiObject;
         }
         rankText.text = charList.Rank.ToString();
@@ -93,7 +102,7 @@ public class AllCharListUI : MonoBehaviour
             else
             {
                 column++;
-            }            
+            }
 
             activatedPortraitCount++;
         }
