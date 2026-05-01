@@ -73,13 +73,13 @@ public class PlatformHoldSelector : MonoBehaviour
             if(entity != null)
             {
                 entity.Mover.GetDestinationVector(platforms.PlatformList[releasedIndex].transform.position);
-                entity.Mover.GetDestinationVector(platforms.PlatformList[releasedIndex].GetPosition((entity.Data as CharacterSO).Rank));
+                entity.Mover.GetDestinationVector(platforms.GetSummonPosition(releasedIndex, (entity.Data as CharacterSO).Rank));
                 entity.Mover.Move();
 
-                platforms.PlatformList[releasedIndex].EntitySpawned(entity.gameObject);
+                platforms.EntitySpawned(releasedIndex, entity.gameObject);
             }
         }
 
-        platforms.PlatformList[holdedIndex].Migration();
+        platforms.Migration(holdedIndex);
     }
 }

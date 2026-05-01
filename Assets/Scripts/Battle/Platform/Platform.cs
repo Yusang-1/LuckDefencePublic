@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 {
@@ -10,7 +11,6 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
     [SerializeField] private int currentEntityCode;
     [SerializeField] private int entityCount;
     [SerializeField] private CharRank rank;
-    [SerializeField] private RankUnlockSO rankUnlockData;
 
     private Entity[] entities;
     [SerializeField] private Entity target;
@@ -113,7 +113,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 
     public bool CheckIsPromotionable()
     {
-        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary && rankUnlockData.IsRankUnlocked(rank+1))
+        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary)
         {
             return true;
         }

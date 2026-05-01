@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   probabilityData: {fileID: 11400000, guid: d8cdd720bab9a6f4891fc8b83e4b3f87, type: 2}
   battleData: {fileID: 11400000, guid: 26c73e00451e22a42a2d7dc96e9dde98, type: 2}
-  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}
+  battleCharacterList: {fileID: 11400000, guid: 8a1da3ec61e177e429834083eb006569, type: 2}

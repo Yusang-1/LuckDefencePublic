@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379372e942172704daa8706ce1cc2452, type: 3}
   m_Name: RankProbability
   m_EditorClassIdentifier: 
-  probabilties:
+  probability:
   - 68.2
   - 22.5
   - 6.5
   - 2.6
   - 0.2
-  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}

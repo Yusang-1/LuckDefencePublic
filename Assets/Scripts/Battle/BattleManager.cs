@@ -14,15 +14,17 @@ public class BattleManager : Manager, IManagerSceneEntry
 
     [Header("Datas")]    
     [SerializeField] private BattleDataSO battleData;
-    [SerializeField] private CharacterListDataSO charListData;
-    [SerializeField] private EnemyList enemyList; //getComponent in runtime in enemySpawner
+    [SerializeField] private CharacterListDataSO selectedCharListData;
+    [SerializeField] private RankProbabilitySO rankProbabilityData;
+    [SerializeField] private RankUnlockSO rankUnlockData;
+    private EnemyList enemyList; //getComponent in runtime in enemySpawner
 
     [Space]
     [SerializeField] private BattleMap battleMap; //instantiate in runtime
-    private Platforms platforms => battleMap.Platforms;
     [SerializeField] private BattleSpeedController speedController;
     [SerializeField] private BattleTimer battleTimer;
     [SerializeField] private CharacterFactoryContainer characterFactoryContainer; //instantiate in runtime
+    private Platforms platforms => battleMap.Platforms;
     
     public IEnumerator Initialize()
     {
@@ -55,8 +57,9 @@ public class BattleManager : Manager, IManagerSceneEntry
 
         battleUIManager.EndStagePanelUI.RetryStage += OnRestartBattle;
         battleUIManager.EscMenuUI.RetryStage += OnRestartBattle;
-
-        yield return characterSpawner.Initialize(charListData, battleMap, characterFactoryContainer);
+        
+        SummonInfo summonInfo = new SummonInfo(rankUnlockData, selectedCharListData, rankProbabilityData);
+        yield return characterSpawner.Initialize(selectedCharListData, battleMap, characterFactoryContainer, summonInfo);
 
         battleUIManager.EnableBattleUI();        
     }

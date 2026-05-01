@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: OwnedCharacterListDataSO
   m_EditorClassIdentifier: 
   charListAsRanks:
-  - {fileID: 11400000, guid: bdb11aba67f90e745a134406b79be930, type: 2}
-  - {fileID: 11400000, guid: 0194dff6190556d4195786748beda0cd, type: 2}
-  - {fileID: 11400000, guid: 4837b36731e349047b2e23fb5e2ae0da, type: 2}
-  - {fileID: 11400000, guid: 8b43fcadbff6c724394f59e1b4b91ea3, type: 2}
-  - {fileID: 11400000, guid: 4743d94ebf96293488d2c0e4b7f3066b, type: 2}
+  - {fileID: 11400000, guid: 1f9cb282e20b28d47a29adcd57f263a9, type: 2}
+  - {fileID: 11400000, guid: d289db972bf096548a6148b123d736a7, type: 2}
+  - {fileID: 11400000, guid: e7a5180712cc08f45b45f28ce7edcfd4, type: 2}
+  - {fileID: 11400000, guid: b3ebf665c5b7b8f4bb08df94644a2572, type: 2}
+  - {fileID: 11400000, guid: 549bff674568f344fa674f17a6d70a9d, type: 2}
+  IsDirty: 0

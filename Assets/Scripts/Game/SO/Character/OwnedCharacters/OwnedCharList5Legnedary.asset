@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85fae618997904bb9b9ca1f9394565, type: 3}
+  m_Script: {fileID: 11500000, guid: 0001a38970f23cb47a2a3d16c86bdc73, type: 3}
   m_Name: OwnedCharList5Legnedary
   m_EditorClassIdentifier: 
   rank: 4
@@ -19,7 +19,4 @@ MonoBehaviour:
   - {fileID: 2752432650951637511, guid: e62a6cbfa38129842a781e94c9f0ba07, type: 3}
   fullCount: 3
   codeList: f4010000f5010000f6010000
-  defaultEntityList:
-  - {fileID: 2752432650951637511, guid: 4ddb2e8b549412240900c447500f0fe9, type: 3}
-  - {fileID: 6932989792326727667, guid: 57425ca67fc7f1d4e979a68b377b7b19, type: 3}
-  - {fileID: 2752432650951637511, guid: e62a6cbfa38129842a781e94c9f0ba07, type: 3}
+  defaultEntityList: []

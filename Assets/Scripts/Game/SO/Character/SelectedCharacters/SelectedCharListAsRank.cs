@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-[CreateAssetMenu(fileName = "SelectedCharListAsRank", menuName = "Scriptable Objects/SelectedCharListAsRank")]
+[CreateAssetMenu(fileName = "SelectedCharListAsRank", menuName = "Scriptable Objects/CharList/SelectedCharListAsRank")]
 public class SelectedCharListAsRank : CharListAsRank, ISaveData
 {
     // 숫자가 높은 것부터 대체
@@ -110,7 +110,18 @@ public class SelectedCharListAsRank : CharListAsRank, ISaveData
         }
     }
     
-    public override void SetLoadData(IDataStructForSave saveData)
+    public IDataStructForSave GetSaveData()
+    {
+        CharListAsRankSaveData saveData = new CharListAsRankSaveData
+        {
+            rank = (int)rank,
+            codeList = codeList.ToArray()
+        };
+
+        return saveData;
+    }
+    
+    public void SetLoadData(IDataStructForSave saveData)
     {
         Array.Clear(codeList, 0, codeList.Length);
         Array.Clear(entityList, 0, entityList.Length);
@@ -136,5 +147,26 @@ public class SelectedCharListAsRank : CharListAsRank, ISaveData
         }
     }
     
+    public void SetDefaultData()
+    {
+        Array.Clear(codeList, 0, codeList.Length);
+        Array.Clear(entityList, 0, entityList.Length);
+        entityAsCodeDict.Clear();
+
+        for (int i = 0; i < entityList.Length; i++)
+        {
+            if (i >= defaultEntityList.Length || defaultEntityList[i] == null)
+            {
+                continue;
+            }
+
+            AddCharacter(defaultEntityList[i]);
+        }
+    }
     
+    public struct CharListAsRankSaveData : IDataStructForSave
+    {
+        public int rank;
+        public int[] codeList;
+    }
 }

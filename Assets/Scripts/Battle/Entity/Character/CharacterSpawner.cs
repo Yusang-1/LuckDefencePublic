@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CharacterSpawner : MonoBehaviour
-{    
-    [SerializeField] private RankProbabilitySO probabilityData;
+{
     [SerializeField] private BattleDataSO battleData;
     private CharacterFactoryContainer factoryContainer;
     private AbstractFactory[] factories => factoryContainer.Factories;
@@ -13,41 +12,41 @@ public class CharacterSpawner : MonoBehaviour
 
     private CharacterListDataSO charListData;
 
-    private List<CharRank> summonableRanks;
+    private List<CharRank> currentSummonableRanks;
     private List<int> summonableCharacterCodes;
-    private List<int> availablePlatformIndex;
 
     private Dictionary<CharRank, AbstractFactory> factoryDict;
+    
+    private SummonInfo summonInfo;
 
-    public Dictionary<CharRank, AbstractFactory> FactoryDict => factoryDict;
-
-    public IEnumerator Initialize(CharacterListDataSO characterListData, BattleMap battleMap, CharacterFactoryContainer factoryContainer)
+    public IEnumerator Initialize(CharacterListDataSO characterListData, BattleMap battleMap, CharacterFactoryContainer factoryContainer, SummonInfo summonInfo)
     {
         charListData = characterListData;
         this.battleMap = battleMap;
         this.factoryContainer = factoryContainer;
         factoryDict = new Dictionary<CharRank, AbstractFactory>();
-        summonableRanks = new List<CharRank>();
+        currentSummonableRanks = new List<CharRank>();
         summonableCharacterCodes = new List<int>();
-        availablePlatformIndex = new List<int>();
-
+        this.summonInfo = summonInfo;
+        
         AbstractFactory factory;
         FactoryChar fc;
         for (int i = 0; i < factories.Length; i++)
         {
             factory = factories[i];
             fc = factory as FactoryChar;
-            factory.Initialize(charListData.CharListAsRankDictionary[fc.Rank].EntityAsCodeDict);
-
-            factoryDict.Add(fc.Rank, factory);
-
+            if (summonInfo.SummonableRanks.Contains(fc.Rank))
+            {
+                factory.Initialize(charListData.CharListAsRankDictionary[fc.Rank].EntityAsCodeDict);
+                factoryDict.Add(fc.Rank, factory);
+            }
             yield return null;
         }
-        probabilityData.Initialize();
 
-        foreach(FactoryChar factor in  factories)
+        foreach (FactoryChar factor in factories)
         {
-            foreach(var item in factor.PooledEntityDict)
+            if(factor.PooledEntityDict == null) continue;
+            foreach (var item in factor.PooledEntityDict)
             {
                 item.Value.CharacterSpawned += OnCharacterSpawned;
             }
@@ -68,19 +67,18 @@ public class CharacterSpawner : MonoBehaviour
     public void OnCharacterSpawned(int platformIndex, GameObject go)
     {
         ResetData();
-        platforms.PlatformList[platformIndex].EntitySpawned(go);
+        platforms.EntitySpawned(platformIndex, go);
     }
 
     public void ResetData()
     {
-        summonableRanks.Clear();
+        currentSummonableRanks.Clear();
         summonableCharacterCodes.Clear();
-        availablePlatformIndex.Clear();
     }
 
     public void SpawnEntity()
     {
-        if(battleData.CurrentCoin < battleData.SpawnCost)
+        if (battleData.CurrentCoin < battleData.SpawnCost)
         {
             return;
         }
@@ -89,7 +87,7 @@ public class CharacterSpawner : MonoBehaviour
 
         CharRank rank = CheckSummonableRank();
         int charCode = CheckSummonableCharacterInRank(rank);
-        int platformIndex = CheckAvailablePlatformIndexByCharacter(charCode);
+        int platformIndex = platforms.CheckAvailablePlatformIndexByCharacter(charCode);
         Vector3 position = GetSummonPosition(platformIndex, rank);
 
         SummonData data = new((int)rank, charCode, platformIndex, position);
@@ -101,53 +99,35 @@ public class CharacterSpawner : MonoBehaviour
     {
         factoryDict[(CharRank)data.CharRank].ActiveEntity(data);
     }
-    
-    [SerializeField] private RankUnlockSO rankUnlockData;
+
     public CharRank CheckSummonableRank()
     {
         // 플렛폼들을 순회하며 소환 가능한 랭크의 리스트를 만듦
         foreach (Platform platform in platforms.PlatformList)
         {
-            for (int i = 0; i < (int)CharRank.legendary; i++)
+            foreach (CharRank tempRank in summonInfo.SummonableRanks)
             {
-                if (platform.CheckIsRankSummonable((CharRank)i) && !summonableRanks.Contains((CharRank)i) && rankUnlockData.IsRankUnlocked((CharRank)i))
+                if(tempRank == CharRank.none) continue;
+                
+                if (platform.CheckIsRankSummonable(tempRank) && !currentSummonableRanks.Contains(tempRank))
                 {
-                    summonableRanks.Add((CharRank)i);
+                    currentSummonableRanks.Add(tempRank);
                 }
             }
 
-            if (summonableRanks.Count == (int)CharRank.legendary)
+            if (currentSummonableRanks.Count == (int)CharRank.legendary)
             {
                 break;
             }
         }
 
-        // 확률 기반으로 뽑을 랭크 결정
-        CharRank rank = CharRank.none;
-        float randNum = Random.Range(0, 100);
-        float temp = 0;
-        foreach (var item in probabilityData.ProbabilityDict)
-        {
-            temp += item.Value;
-            if (randNum <= temp && summonableRanks.Contains(item.Key))
-            {
-                rank = item.Key;
-
-                break;
-            }
-        }
-
-        if (rank == CharRank.none)
-        {
-            rank = summonableRanks[0];
-        }
-
-        return rank;
+        return summonInfo.GetRankByProbability(currentSummonableRanks);
     }
 
     public int CheckSummonableCharacterInRank(CharRank rank)
     {
-        int length = charListData.CharListAsRankDictionary[rank].EntityList.Length;
+        Entity[] entities = summonInfo.GetEntityByRank(rank);
+        int length = entities.Length;
         int code;
         bool isAvailable;
 
@@ -156,7 +136,7 @@ public class CharacterSpawner : MonoBehaviour
         {
             for (int i = 0; i < length; i++)
             {
-                code = charListData.CharListAsRankDictionary[rank].EntityList[i].Data.Code;
+                code = entities[i].Data.Code;
                 isAvailable = platform.CheckEntityAvailable(code);
 
                 if (isAvailable && !summonableCharacterCodes.Contains(code))
@@ -177,42 +157,21 @@ public class CharacterSpawner : MonoBehaviour
         return summonableCharacterCodes[randNum];
     }
 
-    public int CheckAvailablePlatformIndexByCharacter(int code)
-    {
-        bool isAvailable;
-
-        // 해당 캐릭터가 들어갈 수 있는 플렛폼을 판별
-        foreach (Platform platform in platforms.PlatformList)
-        {
-            isAvailable = platform.CheckEntityAvailable(code);
-
-            if (isAvailable && !availablePlatformIndex.Contains(platform.Index))
-            {
-                availablePlatformIndex.Add(platform.Index);
-            }
-        }
-
-        int randNum = Random.Range(0, availablePlatformIndex.Count);
-
-        return availablePlatformIndex[randNum];
-    }
-
     public Vector3 GetSummonPosition(int index, CharRank rank)
     {
-        return platforms.PlatformList[index].GetPosition(rank);
+        return platforms.GetSummonPosition(index, rank);
     }
 
     public void PromotionEntity(PlatformData data)
     {
-        platforms.PlatformList[data.Index].ResetPlatform();
-
+        platforms.ResetPlatform(data.Index);
         CharRank rank = data.Rank + 1;
         int charCode = CheckSummonableCharacterInRank(rank);
         int platformIndex = data.Index;
         Vector3 position = GetSummonPosition(platformIndex, rank);
 
         SummonData summonData = new((int)rank, charCode, platformIndex, position);
-        
+
         factoryDict[(CharRank)summonData.CharRank].ActiveEntity(summonData);
     }
 }

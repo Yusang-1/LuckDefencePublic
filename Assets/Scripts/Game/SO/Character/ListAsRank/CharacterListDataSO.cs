@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "CharacterListDataSO", menuName = "Scriptable Objects/CharacterListDataSO")]
+[CreateAssetMenu(fileName = "CharacterListDataSO", menuName = "Scriptable Objects/CharacterList/CharacterListDataSO")]
 public class CharacterListDataSO : ScriptableObject
 {
-    [SerializeField] private CharListAsRank[] charListAsRanks;
-    private Dictionary<CharRank, CharListAsRank> charListAsRankDictionary;
+    [SerializeField] protected CharListAsRank[] charListAsRanks;
+    protected Dictionary<CharRank, CharListAsRank> charListAsRankDictionary;
 
     public Dictionary<CharRank, CharListAsRank> CharListAsRankDictionary => charListAsRankDictionary;
 
     public bool IsDirty;
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         IsDirty = false;
         charListAsRankDictionary = new Dictionary<CharRank, CharListAsRank>();
