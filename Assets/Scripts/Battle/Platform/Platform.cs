@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 {
@@ -113,7 +112,7 @@ public class Platform : MonoBehaviour, ISelectableObject, IHoldableObject
 
     public bool CheckIsPromotionable()
     {
-        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary)
+        if (entityCount == maxAvailableEntityCount && rank < CharRank.legendary && platforms.RankUnlockData.IsRankUnlocked(rank+1))
         {
             return true;
         }

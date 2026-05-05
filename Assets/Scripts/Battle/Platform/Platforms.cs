@@ -11,12 +11,13 @@ public class Platforms : MonoBehaviour
     [SerializeField] private Platform[] platformList;
     [SerializeField] private PlatformHoldSelector holdSelector;
     [SerializeField] private PlatformHoldArrowDrawer arrowDrawer;
+    [SerializeField] private RankUnlockSO rankUnlockData;
 
     private int selectedPlatformIndex;
 
     public Platform[] PlatformList => platformList;
     public InputPlatform InputPlatform;
-
+    public RankUnlockSO RankUnlockData => rankUnlockData;
     public int SelectedPlatformIndex
     {
         get => selectedPlatformIndex;
@@ -96,12 +97,12 @@ public class Platforms : MonoBehaviour
 
         return availablePlatformIndexes[randNum];
     }
-    
+
     public Vector3 GetSummonPosition(int index, CharRank rank) => platformList[index].GetPosition(rank);
-    
+
     public void ResetPlatform(int index) => platformList[index].ResetPlatform();
-    
+
     public void EntitySpawned(int index, GameObject go) => platformList[index].EntitySpawned(go);
-    
+
     public void Migration(int index) => platformList[index].Migration();
 }

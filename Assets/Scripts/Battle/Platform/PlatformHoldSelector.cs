@@ -21,13 +21,13 @@ public class PlatformHoldSelector : MonoBehaviour
         holdedIndex = -1;
         releasedIndex = -1;
     }
-    
+
     public void Selected(int platformIndex, Platform platform)
     {
         selectEffect.transform.position = platform.transform.position;
         selectEffect.SetActive(true);
     }
-    
+
     public void SelectEnd()
     {
         selectEffect.SetActive(false);
@@ -38,7 +38,7 @@ public class PlatformHoldSelector : MonoBehaviour
         holdedIndex = platformIndex;
         platforms.SelectedPlatformIndex = -1;
         platforms.SelectedPlatformIndex = -1;
-        
+
         holdEffect.transform.position = platform.transform.position;
         holdEffect.SetActive(true);
     }
@@ -46,14 +46,31 @@ public class PlatformHoldSelector : MonoBehaviour
     public void Released(int platformIndex, Platform platform)
     {
         releasedIndex = platformIndex;
-        
-        holdEffect.SetActive(false);
-        releseEffect.transform.position = platform.transform.position;
-        releseEffect.SetActive(true);
-        StartCoroutine(WaitEffect(0.5f));
-        DoJob();
+
+        if (IsReleasable())
+        {
+            holdEffect.SetActive(false);
+            releseEffect.transform.position = platform.transform.position;
+            releseEffect.SetActive(true);
+            StartCoroutine(WaitEffect(0.5f));
+            DoJob();
+        }
+        else
+        {
+            holdEffect.SetActive(false);
+        }
     }
-    
+
+    private bool IsReleasable()
+    {
+        if (holdedIndex == releasedIndex || holdedIndex == -1 || releasedIndex == -1 || platforms.PlatformList[releasedIndex].EntityCount > 0)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
     private IEnumerator WaitEffect(float time)
     {
         yield return new WaitForSeconds(time);
@@ -62,15 +79,10 @@ public class PlatformHoldSelector : MonoBehaviour
 
     private void DoJob()
     {
-        if(holdedIndex == releasedIndex || holdedIndex == -1 || releasedIndex == -1)
-        {
-            return;
-        }        
-
         Entity[] entities = platforms.PlatformList[holdedIndex].Entities;
-        foreach(Entity entity in entities)
+        foreach (Entity entity in entities)
         {
-            if(entity != null)
+            if (entity != null)
             {
                 entity.Mover.GetDestinationVector(platforms.PlatformList[releasedIndex].transform.position);
                 entity.Mover.GetDestinationVector(platforms.GetSummonPosition(releasedIndex, (entity.Data as CharacterSO).Rank));
