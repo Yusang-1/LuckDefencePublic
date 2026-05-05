@@ -56,9 +56,9 @@ public class BattleDataSO : ScriptableObject
             if(roundNum == 0)
             {
                 CurrentCoin = stageData.InitialCoin;
-            }
+            }            
 
-            if(roundNum >= 0)
+            if(roundNum >= 0 && roundNum < stageData.RoundCount)
             {
                 StartNextRound?.Invoke(stageData.RoundData[roundNum]);
             }

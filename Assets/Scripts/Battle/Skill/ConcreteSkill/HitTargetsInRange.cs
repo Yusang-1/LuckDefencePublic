@@ -13,7 +13,15 @@ public class HitTargetsInRange : ISkill
     
     public void UseSkill(Entity subject, Entity target)
     {
-        List<Entity> targets = SearchTargetsInRange(target.transform.position);
+        List<Entity> targets;
+        if(target == null)
+        {
+            targets = SearchTargetsInRange(subject.transform.position);  
+        }
+        else
+        {
+            targets = SearchTargetsInRange(target.transform.position);            
+        }
         
         foreach(Entity entity in targets)
         {

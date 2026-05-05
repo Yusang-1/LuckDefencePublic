@@ -18,6 +18,11 @@ public class HPUIController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(IsMatched == false)
+        {
+            return;
+        }
+        
         transform.position = Camera.main.WorldToScreenPoint(entity.transform.position + upVector);
     }
 
@@ -41,6 +46,8 @@ public class HPUIController : MonoBehaviour
 
     public void ResetUI()
     {
+        if(IsMatched == false) return;
+        
         if(hpUI.IsMatched)
         {
             entity.BattleData.HPChanged -= SetHP;

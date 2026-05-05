@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "Scriptable Objects", menuName = "Scriptable Objects/Player Resources")]
 public class PlayerResourcesSO : ScriptableObject, ISaveData
 {
     public event Action ResourcesChanged;
-
+    
     [SerializeField] private int playerLevel;
     [SerializeField] private string playerName;
     [SerializeField] private int playerCoin;
@@ -13,7 +13,8 @@ public class PlayerResourcesSO : ScriptableObject, ISaveData
     public int PlayerLevel => playerLevel;
     public string PlayerName => playerName;
     public int PlayerCoin => playerCoin;
-
+    
+    
     public void ChangePlayerLevel(int level)
     {
         playerLevel = level;
@@ -34,7 +35,7 @@ public class PlayerResourcesSO : ScriptableObject, ISaveData
     
     public void AddReward(RewardData rewardData)
     {
-        AddPlayerCoin(rewardData.CoinReward);
+        //AddPlayerCoin(rewardData.CoinReward);
         // 보석 로직 추가시 구현 필요
     }
 

@@ -1,6 +1,6 @@
 ﻿public class Enemy : Entity, IDamagable
 {
-    private bool isDied;
+    protected bool isDied;
     public bool IsDied => isDied;
 
     public override void EntityActivated()

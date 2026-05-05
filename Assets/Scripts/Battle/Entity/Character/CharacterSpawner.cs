@@ -57,6 +57,8 @@ public class CharacterSpawner : MonoBehaviour
     {
         foreach (FactoryChar factor in factories)
         {
+            if(factor.PooledEntityDict == null) continue;
+            
             foreach (var item in factor.PooledEntityDict)
             {
                 item.Value.CharacterSpawned -= OnCharacterSpawned;

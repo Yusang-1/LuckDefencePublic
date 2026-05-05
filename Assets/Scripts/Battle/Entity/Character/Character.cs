@@ -38,7 +38,7 @@ public class Character : Entity, IAttackable, ISkillusable
         CharacterList.Deactivated(this);
         if(hPUIController != null)
         {
-            hPUIController.ResetUI();            
+            hPUIController.ResetUI();
         }
     }
     

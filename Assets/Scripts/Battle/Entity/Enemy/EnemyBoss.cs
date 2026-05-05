@@ -4,11 +4,30 @@ public class EnemyBoss : Enemy, ISkillusable
 {
     private BattleEnemyBossData battleEnemyBossData => battleData as BattleEnemyBossData;
     
+    public override void EntityActivated()
+    {
+        //Debug.Log($"{gameObject.name} activated");
+        if(battleData == null)
+        {
+            battleData = new BattleEnemyBossData(Data, this);
+        }
+        else
+        {
+            battleData.UpdateData(Data, this);
+        }
+
+        EnemyList.Activated(this);
+
+        BattleData.CurrentHP = Data.MaxHp;
+
+        isDied = false;
+    }
+    
     public override void TakeDamage(int damage)
     {
         BattleData.CurrentHP -= damage;
 
-        GetMP(Data.GetMPPoint);
+        GetMP();
     }
     
     public void GetMP()

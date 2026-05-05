@@ -4,14 +4,14 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "CharacterListDataSO", menuName = "Scriptable Objects/CharacterList/CharacterListDataSO")]
 public class CharacterListDataSO : ScriptableObject
 {
-    [SerializeField] protected CharListAsRank[] charListAsRanks;
-    protected Dictionary<CharRank, CharListAsRank> charListAsRankDictionary;
+    [SerializeField] private CharListAsRank[] charListAsRanks;
+    private Dictionary<CharRank, CharListAsRank> charListAsRankDictionary;
 
     public Dictionary<CharRank, CharListAsRank> CharListAsRankDictionary => charListAsRankDictionary;
 
     public bool IsDirty;
 
-    public virtual void Initialize()
+    public void Initialize()
     {
         IsDirty = false;
         charListAsRankDictionary = new Dictionary<CharRank, CharListAsRank>();
