@@ -477,6 +477,8 @@ GameObject:
   - component: {fileID: 711963931}
   - component: {fileID: 711963930}
   - component: {fileID: 711963929}
+  - component: {fileID: 711963934}
+  - component: {fileID: 711963935}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -511,7 +513,6 @@ MonoBehaviour:
   uniqueColorCode: '#ff9523'
   legendaryColorCode: '#FFE423'
   codeUnit: 100
-  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}
 --- !u!114 &711963930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +561,9 @@ MonoBehaviour:
   saveLoad: {fileID: 711963930}
   playerResources: {fileID: 11400000, guid: b52fd13635b1dd349843757a8b2fbe3f, type: 2}
   stagesData: {fileID: 11400000, guid: 8ed34ad06c69c9e43909c4839e82157e, type: 2}
+  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}
+  characterData: {fileID: 711963929}
+  rewardHandler: {fileID: 711963934}
 --- !u!4 &711963933
 Transform:
   m_ObjectHideFlags: 0
@@ -569,12 +573,37 @@ Transform:
   m_GameObject: {fileID: 711963928}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 356.91898, y: 187.50919, z: 11.12807}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &711963934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711963928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b28db9675038c4183b9f5aee891ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &711963935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711963928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6b013c74bca9248b1552fb532b0750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 711963932}
 --- !u!1 &938918262
 GameObject:
   m_ObjectHideFlags: 0

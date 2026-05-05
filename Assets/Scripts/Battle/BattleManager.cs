@@ -86,10 +86,13 @@ public class BattleManager : Manager, IManagerSceneEntry
     private void ClearBattle()
     {
         var gameManager = FindAnyObjectByType<GameManager>();
-        gameManager.PlayerResources.AddReward(battleData.StageData.RewardData);
-        gameManager.StagesData.StageClear(battleData.StageData.StageIndex);
+        gameManager.RewardHandler.StackReward(battleData.StageData.RewardData);
+        gameManager.StagesData.StackStageClear(battleData.StageData.StageIndex);
         
-        battleUIManager.EndStagePanelUI.OnShowStageClearPanel();
+        battleUIManager.EndStagePanelUI.ShowRewardPanel(battleData.StageData.RewardData );
+        battleTimer.OnResetTimer();
+        enemySpawner.OnStopActiveCoroutine();
+        hpSpawner.OnDeactiveAllHP();
         foreach (var platform in platforms.PlatformList)
         {
             platform.ResetPlatform();

@@ -12,6 +12,10 @@ public class LobbyManager : Manager, IManagerSceneEntry
         lobbyUIManager = Instantiate(lobbyUIManager, uiManager.transform);
         lobbyUIManager.transform.SetSiblingIndex(0);
         yield return lobbyUIManager.Initialize(StartBattle);
+        
+        GameManager gameManager = FindAnyObjectByType<GameManager>();
+        gameManager.RewardHandler.TryGetReward();
+        gameManager.StagesData.ApplyStageClear();
     }
     
     public void DestroyPrevUIAfterLoad()

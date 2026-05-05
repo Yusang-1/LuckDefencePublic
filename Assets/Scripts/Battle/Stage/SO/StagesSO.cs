@@ -5,11 +5,34 @@ public class StagesSO : ScriptableObject, ISaveData
 {
     [SerializeField] private StageSO[] stages;
     
-    public void StageClear(int index)
+    int clearedStageIndex;
+    public void StackStageClear(int index)
     {
-        stages[index].IsCleared = true;
-        if(index+1 < stages.Length)
-            stages[index+1].IsUnlocked = true;
+        clearedStageIndex = -1;
+        if(index >= stages.Length)
+        {            
+            Debug.LogWarning("잘못된 stage index : StageClear");
+            return;
+        }
+        
+        clearedStageIndex = index;
+    }
+    public void ApplyStageClear()
+    {
+        if(clearedStageIndex < 0) return;
+        
+        stages[clearedStageIndex].IsCleared = true;
+    }
+    
+    public void StageUnlock(int index)
+    {
+        if(index >= stages.Length)
+        {
+            Debug.LogWarning("잘못된 stage index : StageUnlock");
+            return;
+        }
+        
+        stages[index].IsUnlocked = true;
     }
 
     public IDataStructForSave GetSaveData()
@@ -40,6 +63,8 @@ public class StagesSO : ScriptableObject, ISaveData
             stages[i].IsCleared = saveData.IsCleared[i];
             stages[i].IsUnlocked = saveData.IsUnlocked[i];
         }
+        
+        clearedStageIndex = -1;
     }
     
     public void SetDefaultData()
@@ -49,6 +74,8 @@ public class StagesSO : ScriptableObject, ISaveData
             stages[i].IsCleared = false;
             stages[i].IsUnlocked = i == 0;
         }
+        
+        clearedStageIndex = -1;
     }
 
     public struct StageSaveData : IDataStructForSave

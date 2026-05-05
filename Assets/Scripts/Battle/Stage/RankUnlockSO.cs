@@ -13,6 +13,12 @@ public class RankUnlockSO : ScriptableObject, ISaveData
         
         isRankUnlocked[(int)rank] = true;
     }
+    public void UnlockRank(int rank)
+    {
+        if(rank >= isRankUnlocked.Length) return;
+        
+        isRankUnlocked[rank] = true;
+    }
     
     public bool IsRankUnlocked(CharRank rank)
     {

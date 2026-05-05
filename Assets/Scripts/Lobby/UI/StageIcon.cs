@@ -20,8 +20,12 @@ public class StageIcon : MonoBehaviour
         
         Cleared(stageData.IsCleared);
         Unlocked(stageData.IsUnlocked);
-        
-        if(button == null) button = GetComponent<Button>();
+    }
+
+    private void OnDestroy()
+    {
+        stageData.OnCleared -= Cleared;
+        stageData.OnUnlocked -= Unlocked;
     }
 
     public void OnClick()
@@ -47,16 +51,14 @@ public class StageIcon : MonoBehaviour
     {
         if(value)
         {
-            Color setColor;
-            ColorUtility.TryParseHtmlString(unlockedColor, out setColor);
+            ColorUtility.TryParseHtmlString(unlockedColor, out Color setColor);
             iconImage.color = setColor;
             starImage.color = setColor;
             button.enabled = true;
         }
         else
         {
-            Color setColor;
-            ColorUtility.TryParseHtmlString(lockedColor, out setColor);
+            ColorUtility.TryParseHtmlString(lockedColor, out Color setColor);
             iconImage.color = setColor;
             starImage.color = setColor;
             button.enabled = false;

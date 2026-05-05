@@ -14,7 +14,8 @@ public class StageSO : ScriptableObject
     [SerializeField] private int maxEnemyCount;
     [SerializeField] private int initialCoin;
     [SerializeField] private RoundData[] roundData;
-    [SerializeField] private RewardData rewardData;
+    [SerializeField] private RewardData[] rewardOnce;
+    [SerializeField] private RewardData[] rewardRepeat;
     
     public int StageIndex => stageIndex;
     public int StageNum => stageNum;
@@ -22,7 +23,7 @@ public class StageSO : ScriptableObject
     public RoundData[] RoundData => roundData;
     public int RoundCount => roundData.Length;
     public int InitialCoin => initialCoin;
-    public RewardData RewardData => rewardData;
+    public RewardData[] RewardData => isCleared ? rewardRepeat : rewardOnce;
     public bool IsCleared
     {
         get => isCleared;
@@ -55,11 +56,4 @@ public struct RoundData
     public int EnemyCount => enemyCount;
     public int AdditionalTime => additionalTime;
     public float SpawnDelay => spawnDelay;
-}
-
-[Serializable]
-public struct RewardData
-{
-    public int CoinReward;
-    public int GemReward;
 }

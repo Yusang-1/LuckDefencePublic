@@ -5612,6 +5612,7 @@ MonoBehaviour:
   - {fileID: 3559840984738602981}
   holdSelector: {fileID: 8711890531406466913}
   arrowDrawer: {fileID: 6057497686182405510}
+  rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}
   InputPlatform: {fileID: 531808408121629174}
 --- !u!114 &8711890531406466913
 MonoBehaviour:

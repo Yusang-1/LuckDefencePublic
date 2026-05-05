@@ -82,6 +82,12 @@ public class CharacterData : MonoBehaviour
     {
         ownedCharacterListData.CharListAsRankDictionary[GetCharRankByCode(entity.Data.Code)].AddCharacter(entity);
     }
+    public void AddOwnedCharacter(int code)
+    {
+        Entity entity = characterListData.CharListAsRankDictionary[GetCharRankByCode(code)].EntityAsCodeDict[code];
+        
+        ownedCharacterListData.CharListAsRankDictionary[GetCharRankByCode(code)].AddCharacter(entity);
+    }
 
     /// <summary>
     /// OwnedCharacter List에서 캐릭터를 제거

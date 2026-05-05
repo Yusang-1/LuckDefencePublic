@@ -7,12 +7,15 @@ public class EndStagePanelUI : MonoBehaviour
 
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject StageClearPanel;
+    [SerializeField] private RewardShower rewardShower;
 
     private void Start()
     {
         gameObject.SetActive(true);
         StageClearPanel.SetActive(false);
         GameOverPanel.SetActive(false);
+        
+        rewardShower.OnCollectAllReward += OnShowStageClearPanel;
     }
 
     public void OnGoToMainMenu()
@@ -34,14 +37,20 @@ public class EndStagePanelUI : MonoBehaviour
         GameOverPanel.SetActive(true);
     }
 
-    public void OnShowStageClearPanel()
+    private void OnShowStageClearPanel()
     {
         StageClearPanel.SetActive(true);
+    }
+    
+    public void ShowRewardPanel(RewardData[] rewards)
+    {
+        rewardShower.ShowRewardPanel(rewards);
     }
 
     public void OnDeactivePanel()
     {
         StageClearPanel.SetActive(false);
         GameOverPanel.SetActive(false);
+        rewardShower.gameObject.SetActive(false);
     }
 }
