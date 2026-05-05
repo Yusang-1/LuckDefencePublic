@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7251c3c3892bb4b8fb1cca8d12499f, type: 3}
   m_Name: Stage4
   m_EditorClassIdentifier: 
-  StageIndex: 3
-  IsCleared: 0
-  IsUnlocked: 0
+  stageIndex: 4
+  isCleared: 0
+  isUnlocked: 0
   stageNum: 1
   maxEnemyCount: 40
   initialCoin: 50
@@ -39,6 +39,9 @@ MonoBehaviour:
     enemyCount: 1
     additionalTime: 0
     spawnDelay: 0
-  rewardData:
-    CoinReward: 150
-    GemReward: 0
+  rewardOnce:
+  - Type: 0
+    Value: 180
+  rewardRepeat:
+  - Type: 0
+    Value: 90

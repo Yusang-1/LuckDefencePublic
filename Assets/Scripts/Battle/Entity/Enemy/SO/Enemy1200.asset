@@ -21,7 +21,7 @@ MonoBehaviour:
   AttackSpeed: 0
   AttackRange: 0
   defaultDefencePoint: 0
-  MoveSpeed: 3
+  MoveSpeed: 2.4
   Prefab: {fileID: 7964986942513546205, guid: 74d64cd7e78329f4081e253ad1992622, type: 3}
   rank: 1
   dropCoin: 25
