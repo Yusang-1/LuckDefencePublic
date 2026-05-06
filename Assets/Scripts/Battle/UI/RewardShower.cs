@@ -8,13 +8,11 @@ public class RewardShower : MonoBehaviour
     public event Action OnCollectAllReward;
 
     [SerializeField] private RewardIcon rewardIconOrigin;
-    [SerializeField] private Transform container;
+    [SerializeField] private RectTransform container;
 
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button nextButton;
 
-    [SerializeField] private float margin;
-    
     const int maxIconRow = 4;
     const int maxIconColumn = 2;
     const int maxIconCount = 8;
@@ -27,8 +25,9 @@ public class RewardShower : MonoBehaviour
         rewardIcons = new RewardIcon[iconCount];
 
         int currentRow = 1, currentColumn = 1;
+        float scale = -1, margin = -1;
         RectTransform rect;
-        Vector2 pivot = new Vector2(0,1);
+        Vector2 pivot = new(0, 1);
         for (int i = 0; i < iconCount; i++)
         {
             RewardIcon icon = Instantiate(rewardIconOrigin, container);
@@ -37,11 +36,25 @@ public class RewardShower : MonoBehaviour
 
             rect = rewardIcons[i].GetComponent<RectTransform>();
             rect.pivot = pivot;
-            rect.anchoredPosition = new Vector2(rect.sizeDelta.x * (currentRow - 1) + margin, -rect.sizeDelta.y * (currentColumn - 1));
+            rect.anchorMax = pivot;
+            rect.anchorMin = pivot;
+
+            if (scale < 0)
+            {
+                scale = container.rect.height / rect.rect.height / maxIconColumn;
+            }
+            rect.localScale = new Vector3(scale, scale, 0);
+
+            if (margin < 0)
+            {
+                margin = (container.rect.width - (rect.rect.width * maxIconRow * scale)) / 2;
+            }
+
+            rect.anchoredPosition = new Vector2(rect.sizeDelta.x * scale * (currentRow - 1) + margin, -rect.sizeDelta.y * scale * (currentColumn - 1));
 
             if (currentRow % maxIconRow == 0)
             {
-                currentRow = 0;
+                currentRow = 1;
                 currentColumn++;
             }
             else
@@ -50,14 +63,14 @@ public class RewardShower : MonoBehaviour
             }
         }
     }
-    
+
     public void ShowRewardPanel(RewardData[] rewards)
     {
         gameObject.SetActive(true);
         CreateRewardList();
         StartCoroutine(SetRewardIcons(rewards));
     }
-    
+
     int completeCount;
     public IEnumerator SetRewardIcons(RewardData[] rewards)
     {
@@ -67,14 +80,21 @@ public class RewardShower : MonoBehaviour
         {
             nextButton.gameObject.SetActive(true);
             confirmButton.gameObject.SetActive(false);
-            
-            for(int i = 0; i < maxIconCount; i++)
+
+            for (int i = 0; i < maxIconCount; i++)
             {
-                rewardIcons[i].SetIcon(null, rewards[completeCount++].Value);
+                if (completeCount < rewards.Length)
+                {
+                    rewardIcons[i].SetIcon(null, rewards[completeCount++].Value);
+                }
+                else
+                {
+                    rewardIcons[i].ResetIcon();
+                }
             }
-            
-            if(completeCount >= rewards.Length) break;
-            
+
+            if (completeCount >= rewards.Length) break;
+
             yield return WaitForPressNextButton();
         }
 
@@ -86,18 +106,18 @@ public class RewardShower : MonoBehaviour
     private IEnumerator WaitForPressNextButton()
     {
         isNextButtonPressed = false;
-        
+
         while (isNextButtonPressed == false)
         {
             yield return null;
         }
     }
-    
+
     public void OnPressNextButton()
     {
         isNextButtonPressed = true;
     }
-    
+
     public void OnPressConfirmButton()
     {
         OnCollectAllReward?.Invoke();
