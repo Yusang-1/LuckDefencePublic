@@ -48,8 +48,7 @@ public class BattleManager : Manager, IManagerSceneEntry
         battleData.StartNextRound += enemySpawner.SpawnEnemy;
         battleData.StartNextRound += battleTimer.OnStartTimerAddTime;
 
-        battleData.EnemyFull += battleUIManager.EndStagePanelUI.OnShowGameOverPanel;
-        battleData.EnemyFull += OnResetBattle;        
+        battleData.EnemyFull += GameOver;        
 
         battleData.AllEnemyDied += ClearBattle;
 
@@ -68,9 +67,7 @@ public class BattleManager : Manager, IManagerSceneEntry
     {
         battleData.StartNextRound -= enemySpawner.SpawnEnemy;
         battleData.StartNextRound -= battleTimer.OnStartTimerAddTime;
-        battleData.EnemyFull -= battleUIManager.EndStagePanelUI.OnShowGameOverPanel;
-        battleData.EnemyFull -= enemySpawner.OnStopActiveCoroutine;
-        battleData.EnemyFull -= OnResetBattle;
+        battleData.EnemyFull -= GameOver;
         battleData.AllEnemyDied -= ClearBattle;
         battleTimer.TimeIsOver -= stageManager.StartNextRound;
         battleUIManager.EndStagePanelUI.RetryStage -= OnRestartBattle;
@@ -83,7 +80,7 @@ public class BattleManager : Manager, IManagerSceneEntry
         //battleData.OnResetData();
     }
     
-    private void ClearBattle()
+    public void ClearBattle()
     {
         var gameManager = FindAnyObjectByType<GameManager>();
         gameManager.RewardHandler.StackReward(battleData.StageData.RewardData);
@@ -108,20 +105,22 @@ public class BattleManager : Manager, IManagerSceneEntry
         {
             platform.ResetPlatform();
         }
-        GameOver();
     }
     private void OnRestartBattle()
     {
         OnResetBattle();
 
-        enemyList.OnDeactivateAllEnemy();        
+        enemyList.OnDeactivateAllEnemy();
         battleData.OnResetData();
         speedController.Initialize();
         battleUIManager.ResetBattleUI();
     }
 
-    private void GameOver()
+    public void GameOver()
     {
+        OnResetBattle();
+        
+        battleUIManager.EndStagePanelUI.OnShowGameOverPanel();
         battleData.IsGameOver = true;
     }
 
