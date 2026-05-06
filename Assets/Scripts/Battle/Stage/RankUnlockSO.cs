@@ -3,9 +3,10 @@ using System;
 using System.Linq;
 
 [CreateAssetMenu(fileName = "Rank Unlock SO", menuName = "Scriptable Objects/Player/Rank Unlock SO")]
-public class RankUnlockSO : ScriptableObject, ISaveData
+public class RankUnlockSO : ScriptableObject, ISaveData, IRewardDataGiver
 {
     [SerializeField] private bool[] isRankUnlocked;
+    [SerializeField] private Sprite[] rankSprites;
     
     public void UnlockRank(CharRank rank)
     {
@@ -50,6 +51,17 @@ public class RankUnlockSO : ScriptableObject, ISaveData
         }
         isRankUnlocked = new bool[count];
         isRankUnlocked[0] = true;
+    }
+
+    public void SetRewardInfo(RewardInfo info, int code)
+    {
+        if(code >= rankSprites.Length)
+        {
+            Debug.LogWarning("code가 rankSpirtes의 length보다 큼");
+            return;
+        }
+        
+        info.SetData(Enum.GetName(typeof(CharRank), code), rankSprites[code]);
     }
 
     public struct RankUnlockSaveData : IDataStructForSave

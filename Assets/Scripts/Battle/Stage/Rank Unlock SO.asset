@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Rank Unlock SO
   m_EditorClassIdentifier: 
   isRankUnlocked: 0100000000
+  rankSprites:
+  - {fileID: 21300000, guid: f1df8963cdffa435d8eb848683b327c3, type: 3}
+  - {fileID: 21300000, guid: 3eccc0fa0d72e4392b563e6bbf6005c8, type: 3}
+  - {fileID: 21300000, guid: d71d4e77dfe1d4474acad9d613932ec8, type: 3}
+  - {fileID: 21300000, guid: 2adf134bf181b462381328428b219753, type: 3}
+  - {fileID: 21300000, guid: 3a087737446f74834a85253bfbabd726, type: 3}

@@ -26,7 +26,7 @@ public class LobbyManager : Manager, IManagerSceneEntry
     private void StartBattle(StageSO stageData)
     {
         CharacterData characterData = FindAnyObjectByType<CharacterData>();
-        if (characterData.isSelectedCharacterFull() == false)
+        if (characterData.IsSelectedCharacterFull() == false)
         {
             lobbyUIManager.OpenUIState(lobbyUIManager.ManagedCharacterUI);
             return;

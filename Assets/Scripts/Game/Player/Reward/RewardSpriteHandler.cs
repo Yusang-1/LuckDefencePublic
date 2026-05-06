@@ -11,7 +11,7 @@ public class RewardSpriteHandler : MonoBehaviour
     {
         spriteGetter = new Dictionary<RewardType, RewardSpriteGetter>();
         spriteGetter.Add(RewardType.character, new RewardCharacterSpriteGetter(gameManager.CharacterData));
-        spriteGetter.Add(RewardType.coin, new RewardResourcesSpirteGetter());
+        spriteGetter.Add(RewardType.property, new RewardResourcesSpirteGetter());
         spriteGetter.Add(RewardType.unlockStage, new RewardUnlockStageSpirteGetter());
         spriteGetter.Add(RewardType.unlockRank, new RewardUnlockRankSpirteGetter());
     }

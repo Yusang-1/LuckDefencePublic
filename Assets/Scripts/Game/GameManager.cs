@@ -6,6 +6,7 @@ public class GameManager : Manager
     [SerializeField] private TitleUI titleUI;
     [SerializeField] private SaveLoad saveLoad;
     [SerializeField] private PlayerResourcesSO playerResources;
+    [SerializeField] private ResourcesContainerSO resourcesData;
     [SerializeField] private StagesSO stagesData;
     [SerializeField] private RankUnlockSO rankUnlockData;
     [SerializeField] private CharacterData characterData;
@@ -17,6 +18,8 @@ public class GameManager : Manager
     public SaveLoad SaveLoad => saveLoad;
     public RewardHandler RewardHandler => rewardHandler;
     public CharacterData CharacterData => characterData;
+    public ResourcesContainerSO ResourcesData => resourcesData;
+    public RankUnlockSO RankUnlockData => rankUnlockData;
 
     private static bool hasInstance = false;
 
@@ -49,6 +52,7 @@ public class GameManager : Manager
     {
         saveLoad.LoadGame();
         SubscribeRewardHandler();
+        resourcesData.Initialize();
     }
     
     private void SubscribeRewardHandler()

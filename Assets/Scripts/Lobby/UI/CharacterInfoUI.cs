@@ -17,13 +17,11 @@ public class CharacterInfoUI : MonoBehaviour
         charPortrait.sprite = (entity.Data as CharacterSO).FullImage;
         
         charName.text = entity.Data.EntityName;
-        
-        CachedTextNumber cachedText = new CachedTextNumber();
-        int length;
-        CharAtkPoint.SetCharArray(cachedText.GetCachedText(entity.Data.AttackPoint, out length), 0, length);
-        CharAtkRange.SetCharArray(cachedText.GetCachedText(entity.Data.AttackRange, out length), 0, length);
-        CharMaxMana.SetCharArray(cachedText.GetCachedText(entity.Data.MaxMp, out length), 0, length);
-        CharAtkSpeed.SetCharArray(cachedText.GetCachedText(entity.Data.AttackSpeed, out length), 0, length);
-        CharMoveSpeed.SetCharArray(cachedText.GetCachedText(entity.Data.MoveSpeed, out length), 0, length);
+
+        CharAtkPoint.SetCharArray(CachedTextNumber.GetCachedText(entity.Data.AttackPoint, out int length), 0, length);
+        CharAtkRange.SetCharArray(CachedTextNumber.GetCachedText(entity.Data.AttackRange, out length), 0, length);
+        CharMaxMana.SetCharArray(CachedTextNumber.GetCachedText(entity.Data.MaxMp, out length), 0, length);
+        CharAtkSpeed.SetCharArray(CachedTextNumber.GetCachedText(entity.Data.AttackSpeed, out length), 0, length);
+        CharMoveSpeed.SetCharArray(CachedTextNumber.GetCachedText(entity.Data.MoveSpeed, out length), 0, length);
     }
 }

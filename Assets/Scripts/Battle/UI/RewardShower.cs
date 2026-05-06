@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
 
 public class RewardShower : MonoBehaviour
 {
@@ -75,7 +75,9 @@ public class RewardShower : MonoBehaviour
     public IEnumerator SetRewardIcons(RewardData[] rewards)
     {
         completeCount = 0;
-
+        RewardDataLoader dataLoader = new(FindAnyObjectByType<GameManager>());
+        RewardInfo info = new();
+        
         while (completeCount < rewards.Length)
         {
             nextButton.gameObject.SetActive(true);
@@ -85,7 +87,8 @@ public class RewardShower : MonoBehaviour
             {
                 if (completeCount < rewards.Length)
                 {
-                    rewardIcons[i].SetIcon(null, rewards[completeCount++].Value);
+                    dataLoader.SetRewardInfo(rewards[completeCount], info);
+                    rewardIcons[i].SetIcon(info, rewards[completeCount++].Count);
                 }
                 else
                 {

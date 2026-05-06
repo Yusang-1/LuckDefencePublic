@@ -560,6 +560,7 @@ MonoBehaviour:
   titleUI: {fileID: 938918264}
   saveLoad: {fileID: 711963930}
   playerResources: {fileID: 11400000, guid: b52fd13635b1dd349843757a8b2fbe3f, type: 2}
+  resourcesData: {fileID: 11400000, guid: 3dce90f93dc5e024a92abf23d9b64fc7, type: 2}
   stagesData: {fileID: 11400000, guid: 8ed34ad06c69c9e43909c4839e82157e, type: 2}
   rankUnlockData: {fileID: 11400000, guid: d6358ef34754cd049bee89bd3b219553, type: 2}
   characterData: {fileID: 711963929}

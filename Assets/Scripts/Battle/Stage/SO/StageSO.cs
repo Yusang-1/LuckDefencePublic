@@ -6,8 +6,10 @@ public class StageSO : ScriptableObject
 {
     public event Action<bool> OnCleared;
     public event Action<bool> OnUnlocked;
-    
-    [SerializeField] private int stageIndex;    
+
+    [SerializeField] private Sprite sprite;
+    [SerializeField] private string stageName;
+    [SerializeField] private int stageIndex;
     [SerializeField] private bool isCleared;
     [SerializeField] private bool isUnlocked;
     [SerializeField] private int stageNum;
@@ -16,7 +18,7 @@ public class StageSO : ScriptableObject
     [SerializeField] private RoundData[] roundData;
     [SerializeField] private RewardData[] rewardOnce;
     [SerializeField] private RewardData[] rewardRepeat;
-    
+
     public int StageIndex => stageIndex;
     public int StageNum => stageNum;
     public int MaxEnemyCount => maxEnemyCount;
@@ -24,6 +26,8 @@ public class StageSO : ScriptableObject
     public int RoundCount => roundData.Length;
     public int InitialCoin => initialCoin;
     public RewardData[] RewardData => isCleared ? rewardRepeat : rewardOnce;
+    public Sprite Sprite => sprite;
+    public string StageName => stageName;
     public bool IsCleared
     {
         get => isCleared;

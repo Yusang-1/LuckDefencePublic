@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Stages", menuName = "Scriptable Objects/Stage/StagesSO")]
-public class StagesSO : ScriptableObject, ISaveData
+public class StagesSO : ScriptableObject, ISaveData, IRewardDataGiver
 {
     [SerializeField] private StageSO[] stages;
     
@@ -76,6 +76,11 @@ public class StagesSO : ScriptableObject, ISaveData
         }
         
         clearedStageIndex = -1;
+    }
+
+    public void SetRewardInfo(RewardInfo info, int code)
+    {
+        info.SetData(stages[code].StageName, stages[code].Sprite);
     }
 
     public struct StageSaveData : IDataStructForSave

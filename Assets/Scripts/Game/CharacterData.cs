@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class CharacterData : MonoBehaviour
+public class CharacterData : MonoBehaviour, IRewardDataGiver
 {
     [Header("characterLists")]
     [SerializeField] private CharacterListDataSO characterListData;
@@ -145,7 +145,7 @@ public class CharacterData : MonoBehaviour
     /// 전투에 필요한 SelectedCharacter List가 모두 채워졌는지 확인
     /// </summary>
     /// <returns></returns>
-    public bool isSelectedCharacterFull()
+    public bool IsSelectedCharacterFull()
     {
         int count = 0;
         foreach(var item in selectedCharacterListData.CharListAsRankDictionary)
@@ -164,5 +164,12 @@ public class CharacterData : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void SetRewardInfo(RewardInfo info, int code)
+    {
+        CharRank rank = GetCharRankByCode(code);
+        EntitySO data = characterListData.CharListAsRankDictionary[rank].EntityAsCodeDict[code].Data;
+        info.SetData(data.EntityName, (data as CharacterSO).Portrait);
     }
 }

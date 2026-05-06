@@ -15,7 +15,7 @@ public class RewardHandler : MonoBehaviour
     {
         rewards = null;
         rewardHandlerDect = new Dictionary<RewardType, Action<int>>();
-        rewardHandlerDect.Add(RewardType.coin, OnGetRewardCoin);
+        rewardHandlerDect.Add(RewardType.property, OnGetRewardCoin);
         rewardHandlerDect.Add(RewardType.unlockStage, OnGetRewardUnlockStage);
         rewardHandlerDect.Add(RewardType.unlockRank, OnGetRewardUnlockRank);
         rewardHandlerDect.Add(RewardType.character, OnGetRewardCharacter);
