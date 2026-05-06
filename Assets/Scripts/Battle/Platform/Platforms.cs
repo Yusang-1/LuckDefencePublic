@@ -70,32 +70,85 @@ public class Platforms : MonoBehaviour
         PlatformDataChanged?.Invoke(platformList[index]);
     }
 
-    List<int> availablePlatformIndexes;
+    private List<int> availableIndexes;
+    private List<int> availableIndexesHaveCharCode;
+    const int haveCharCodeProbability = 75;
     public int CheckAvailablePlatformIndexByCharacter(int charCode)
     {
-        if (availablePlatformIndexes == null)
-        {
-            availablePlatformIndexes = new List<int>();
-        }
+        if (availableIndexes == null)
+            availableIndexes = new List<int>();
         else
-            availablePlatformIndexes.Clear();
+            availableIndexes.Clear();
 
-        bool isAvailable;
+        if (availableIndexesHaveCharCode == null)
+            availableIndexesHaveCharCode = new List<int>();
+        else
+            availableIndexesHaveCharCode.Clear();
 
         // 해당 캐릭터가 들어갈 수 있는 플렛폼을 판별
-        foreach (Platform platform in platformList)
+        Platform platform;
+        for (int i = 0; i < platformList.Length; i++)
         {
-            isAvailable = platform.CheckEntityAvailable(charCode);
-
-            if (isAvailable && !availablePlatformIndexes.Contains(platform.Index))
+            platform = platformList[i];
+            if (platform.CheckEntityAvailable(charCode))
             {
-                availablePlatformIndexes.Add(platform.Index);
+                if (platform.EntityCount == 0)
+                {
+                    if (!availableIndexes.Contains(platform.Index))
+                    {
+                        availableIndexes.Add(platform.Index);
+                    }
+                }
+                else
+                {
+                    if (platform.Entities[0].Data.Code != charCode) // 플렛폼에 다른 entity가 있는 경우
+                    {
+                        if (!availableIndexes.Contains(platform.Index))
+                        {
+                            availableIndexes.Add(platform.Index);
+                        }
+                    }
+                    else // 플렛폼에 같은 entity가 있는 경우
+                    {
+                        if (!availableIndexesHaveCharCode.Contains(platform.Index))
+                        {
+                            availableIndexesHaveCharCode.Add(platform.Index);
+                        }
+                    }
+                }
             }
         }
 
-        int randNum = UnityEngine.Random.Range(0, availablePlatformIndexes.Count);
-
-        return availablePlatformIndexes[randNum];
+        int randNum;
+        if (availableIndexes.Count > 0 && availableIndexesHaveCharCode.Count > 0)
+        {
+            randNum = UnityEngine.Random.Range(1, 101);
+            if (randNum <= haveCharCodeProbability)
+            {
+                randNum = UnityEngine.Random.Range(0, availableIndexesHaveCharCode.Count);
+                return availableIndexesHaveCharCode[randNum];
+            }
+            else
+            {
+                randNum = UnityEngine.Random.Range(0, availableIndexes.Count);
+                return availableIndexes[randNum];
+            }
+        }
+        else if (availableIndexes.Count > 0 && availableIndexesHaveCharCode.Count == 0)
+        {
+            randNum = UnityEngine.Random.Range(0, availableIndexes.Count);
+            return availableIndexes[randNum];
+        }
+        else if (availableIndexesHaveCharCode.Count > 0 && availableIndexes.Count == 0)
+        {
+            randNum = UnityEngine.Random.Range(0, availableIndexesHaveCharCode.Count);
+            return availableIndexesHaveCharCode[randNum];
+        }
+        else
+        {
+            Debug.LogWarning("availableIndexes와 availableIndexesHaveCharCode의 count가 모두 0");
+            return -1;
+        }
     }
 
     public Vector3 GetSummonPosition(int index, CharRank rank) => platformList[index].GetPosition(rank);
