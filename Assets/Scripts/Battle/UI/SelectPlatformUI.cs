@@ -19,7 +19,6 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
 
     [SerializeField] private float uiOpenTime;
     [SerializeField] private BattleDataSO battleData;
-    private CachedTextNumber cachedTextNumber;
     private IEnumerator deactiveUICoroutine;
     private Platform currentPlatform;
     private bool isOpen;
@@ -29,7 +28,6 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
     {
         yield return StartCoroutine(uiAnimation.Initizlize());
 
-        cachedTextNumber = new CachedTextNumber();
         promotionButton.interactable = false;
     }
 
@@ -57,8 +55,8 @@ public class SelectPlatformUI : MonoBehaviour, IUIAnimation
 
     public void SetData(Platform platform)
     {
-        entityName.SetCharArray(cachedTextNumber.GetCachedText(platform.Entities[0].Data.Code, out int length), 0, length);
-        entityPrice.SetCharArray(cachedTextNumber.GetCachedText((platform.Entities[0].Data as CharacterSO).Price, out length), 0, length);
+        entityName.SetCharArray(CachedTextNumber.GetCachedText(platform.Entities[0].Data.Code, out int length), 0, length);
+        entityPrice.SetCharArray(CachedTextNumber.GetCachedText((platform.Entities[0].Data as CharacterSO).Price, out length), 0, length);
         promotionButton.interactable = platform.CheckIsPromotionable();
     }
 

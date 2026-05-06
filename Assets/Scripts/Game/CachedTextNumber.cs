@@ -1,13 +1,10 @@
-using System.Text;
-using UnityEngine;
-
 public class CachedTextNumber
 {
-    private char[] cachedTexts = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
-    private char[] resultChars = new char[10];
-    private int resultLength;
+    private static readonly char[] cachedTexts = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
+    private static readonly char[] resultChars = new char[10];
+    private static int resultLength;
     
-    public char[] GetCachedText(float number, out int length)
+    public static char[] GetCachedText(float number, out int length)
     {
         resultLength = 0;
         int index;

@@ -8,8 +8,6 @@ public class ResourcesUI : UIPresenter<int>
 
     [SerializeField] private BattleDataSO battleData;
     
-    private CachedTextNumber cachedTextNumber;
-    
     private void OnDestroy()
     {
         battleData.CoinChanged -= OnUpdateUI;
@@ -18,7 +16,6 @@ public class ResourcesUI : UIPresenter<int>
     public void Initialize()
     {
         battleData.CoinChanged += OnUpdateUI;
-        cachedTextNumber = new CachedTextNumber();
     }
 
     public override void OnUpdateUI(int item)
@@ -28,6 +25,6 @@ public class ResourcesUI : UIPresenter<int>
 
     private void UpdateCoinUI(int item)
     {
-        coinText.SetCharArray(cachedTextNumber.GetCachedText(item, out int length), 0, length);
+        coinText.SetCharArray(CachedTextNumber.GetCachedText(item, out int length), 0, length);
     }
 }

@@ -8,7 +8,6 @@ public class BattleTimerUI : UIPresenter<float>
     [SerializeField] private TextMeshProUGUI timerText;
 
     private BattleTimer timer;
-    private CachedTextNumber timerCachedText;
 
     private void OnDestroy()
     {
@@ -20,7 +19,6 @@ public class BattleTimerUI : UIPresenter<float>
     {
         this.timer = timer;
         timer.TimeChanged += OnUpdateUI;
-        timerCachedText = new CachedTextNumber();
     }
 
     public override void OnUpdateUI(float item)
@@ -30,7 +28,7 @@ public class BattleTimerUI : UIPresenter<float>
 
     private void ChangeTimerText(float time)
     {
-        char[] chars = timerCachedText.GetCachedText(time, out int length);
+        char[] chars = CachedTextNumber.GetCachedText(time, out int length);
         timerText.SetCharArray(chars, 0, length);
     }
 }

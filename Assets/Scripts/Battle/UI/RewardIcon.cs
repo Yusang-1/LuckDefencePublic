@@ -7,13 +7,11 @@ public class RewardIcon : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI count;
 
-    CachedTextNumber cachedText;
     public void SetIcon(Sprite icon, int count)
     {
         this.icon.sprite = icon;
 
-        cachedText ??= new CachedTextNumber();
-        this.count.SetCharArray(cachedText.GetCachedText(count, out int length), 0, length);
+        this.count.SetCharArray(CachedTextNumber.GetCachedText(count, out int length), 0, length);
         gameObject.SetActive(true);
     }
 
